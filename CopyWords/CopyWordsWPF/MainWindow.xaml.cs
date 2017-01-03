@@ -30,7 +30,7 @@ namespace CopyWordsWPF
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            CopyWordsWPF.Properties.Settings.Default.Save();        
+            CopyWordsWPF.Properties.Settings.Default.Save();
         }
     }
 }
