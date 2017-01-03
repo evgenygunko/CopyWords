@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Net;
-using HtmlAgilityPack;
 
 namespace CopyWordsWPF.Parsers
 {
@@ -34,7 +29,7 @@ namespace CopyWordsWPF.Parsers
             string endings = string.Empty;
 
             var div = FindElementById("id-boj");
-            
+
             if (div != null)
             {
                 var spanEndings = div.SelectSingleNode("./span[contains(@class, 'tekstmedium allow-glossing')]");
@@ -121,7 +116,7 @@ namespace CopyWordsWPF.Parsers
                             definitions += string.Format("{0}", DecodeText(definitionsDivs[i].InnerText));
                         }
                     }
-                } 
+                }
             }
 
             return definitions.Trim();
@@ -152,7 +147,7 @@ namespace CopyWordsWPF.Parsers
 
                         examples.Add(string.Format("{0}. {1}", (i + 1).ToString(), example));
                     }
-                } 
+                }
             }
 
             return examples;

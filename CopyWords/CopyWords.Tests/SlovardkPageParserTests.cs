@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Text;
-using CopyWordsWPF;
+﻿using System.IO;
 using CopyWordsWPF.Parsers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -65,7 +59,8 @@ namespace CopyWords.Tests
             Assert.AreEqual(3, translations.Count);
 
             Assert.AreEqual("kæmpe", translations[0].DanishWord);
-            Assert.AreEqual("1) богатырь, великан\r\n2) бороться, биться, сражаться", 
+            Assert.AreEqual(
+                "1) богатырь, великан\r\n2) бороться, биться, сражаться",
                 translations[0].Translation);
 
             Assert.AreEqual("kæmpemæssig", translations[1].DanishWord);

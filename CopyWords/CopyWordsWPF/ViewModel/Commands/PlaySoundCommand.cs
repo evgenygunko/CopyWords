@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Threading;
-using System.Windows;
-using System.Windows.Input;
 using WMPLib;
 
 namespace CopyWordsWPF.ViewModel.Commands
@@ -9,7 +6,7 @@ namespace CopyWordsWPF.ViewModel.Commands
     public class PlaySoundCommand : CommandBase
     {
         private WindowsMediaPlayer _player;
-        private string _soundURL;       
+        private string _soundURL;
 
         public override void Execute(object parameter)
         {

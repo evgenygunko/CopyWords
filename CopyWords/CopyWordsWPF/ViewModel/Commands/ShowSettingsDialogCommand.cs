@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
-using CopyWordsWPF.View;
+﻿using CopyWordsWPF.View;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
@@ -16,7 +13,7 @@ namespace CopyWordsWPF.ViewModel.Commands
                 SettingsViewModel vm = settingsDialog.DataContext as SettingsViewModel;
 
                 CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder = vm.AnkiSoundsFolder;
-                CopyWordsWPF.Properties.Settings.Default.Mp3gainPath = vm.Mp3gainPath;            
+                CopyWordsWPF.Properties.Settings.Default.Mp3gainPath = vm.Mp3gainPath;
             }
         }
     }

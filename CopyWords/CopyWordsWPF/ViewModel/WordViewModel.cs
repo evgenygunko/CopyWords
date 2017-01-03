@@ -18,7 +18,7 @@ namespace CopyWordsWPF.ViewModel
         private string _definitions = "<>";
         private List<string> _examples = new List<string>();
         private List<RussianTranslation> _russianTranslations = new List<RussianTranslation>();
-        
+
         private CopyTextCommand _copyTextCommand;
         private PlaySoundCommand _playSoundCommand;
         private CopySoundFileCommand _copySoundFileCommand;
@@ -120,7 +120,7 @@ namespace CopyWordsWPF.ViewModel
                     string delimeter = Environment.NewLine;
                     string examples = _examples.Aggregate((i, j) => i + delimeter + j);
 
-                    return examples; 
+                    return examples;
                 }
             }
         }
@@ -155,7 +155,7 @@ namespace CopyWordsWPF.ViewModel
             }
         }
 
-        #endregion 
+        #endregion
 
         #endregion
     }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using CopyWordsWPF.View;
 
@@ -35,13 +30,15 @@ namespace CopyWordsWPF.ViewModel.Commands
         {
             if (!Directory.Exists(CopyWordsWPF.Properties.Settings.Default.DRDictPath))
             {
-                string message = string.Format("Directory for Danish-Russian dictionary specified " +
-                    "in settings does not exist '{0}'. Please open Settings dialog and select a valid directory.", 
+                string message = string.Format(
+                    "Directory for Danish-Russian dictionary specified " +
+                    "in settings does not exist '{0}'. Please open Settings dialog and select a valid directory.",
                     CopyWordsWPF.Properties.Settings.Default.DRDictPath);
-                
-                MessageBox.Show(message,
-                    "Cannot find directory for Danish-Russian dictionary", 
-                    MessageBoxButton.OK, 
+
+                MessageBox.Show(
+                    message,
+                    "Cannot find directory for Danish-Russian dictionary",
+                    MessageBoxButton.OK,
                     MessageBoxImage.Warning);
 
                 return;
@@ -52,9 +49,10 @@ namespace CopyWordsWPF.ViewModel.Commands
 
             if (string.IsNullOrEmpty(fileName))
             {
-                MessageBox.Show(string.Format("Cannot find a scanned page for the word '{0}'", word),
-                    "Cannot find scanned file", 
-                    MessageBoxButton.OK, 
+                MessageBox.Show(
+                    string.Format("Cannot find a scanned page for the word '{0}'", word),
+                    "Cannot find scanned file",
+                    MessageBoxButton.OK,
                     MessageBoxImage.Warning);
 
                 return;
@@ -68,12 +66,12 @@ namespace CopyWordsWPF.ViewModel.Commands
 
             string title = string.Format("Word: '{0}', image file: '{1}'", word, fileName);
             ScannedImageViewModel vm = new ScannedImageViewModel(title, allPages, fileName);
-            
+
             ScannedImageWindow w = new ScannedImageWindow()
             {
                 DataContext = vm
             };
-            
+
             w.Show();
         }
 
@@ -87,7 +85,7 @@ namespace CopyWordsWPF.ViewModel.Commands
                 {
                     return wordToPageMap.FileName;
                 }
-            }           
+            }
 
             // didn't find anything, lookup in the less accurate list
             string key = string.Empty;
@@ -101,7 +99,7 @@ namespace CopyWordsWPF.ViewModel.Commands
                     key = item.Key;
                     break;
                 }
-            
+
                 // some strange bug, the code for 'å' (229) is smaller than the code for 'ø' (248)
                 string currentCodeNormalized = item.Value.Replace('å', (char)249);
                 string wordNormalized = word.Replace('å', (char)249);
@@ -116,7 +114,7 @@ namespace CopyWordsWPF.ViewModel.Commands
                 }
                 else if (currComparison > 0 && lastComparison < 0)
                 {
-                    // will use the key from previous word                    
+                    // will use the key from previous word
                     break;
                 }
 
@@ -922,8 +920,8 @@ namespace CopyWordsWPF.ViewModel.Commands
             };
         }
 
-        #endregion        
-        
+        #endregion
+
         #region Fill the approx map
 
         private void FillTheApproxMap()
@@ -941,7 +939,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             _wordsMapApproxDict.Add("0023.jpg", "afs");
             _wordsMapApproxDict.Add("0024.jpg", "afs");
             _wordsMapApproxDict.Add("0025.jpg", "aft");
-            _wordsMapApproxDict.Add("0026.jpg", "aft");            
+            _wordsMapApproxDict.Add("0026.jpg", "aft");
             _wordsMapApproxDict.Add("0027.jpg", "agr");
             _wordsMapApproxDict.Add("0028.jpg", "agr");
             _wordsMapApproxDict.Add("0029.jpg", "alb");
@@ -1722,11 +1720,11 @@ namespace CopyWordsWPF.ViewModel.Commands
             _wordsMapApproxDict.Add("0804.jpg", "øst");
             _wordsMapApproxDict.Add("0805.jpg", "øst");
             _wordsMapApproxDict.Add("0806.jpg", "ånd");
-            _wordsMapApproxDict.Add("0807.jpg", "ånd");            
-        } 
+            _wordsMapApproxDict.Add("0807.jpg", "ånd");
+        }
 
         #endregion
-        
+
         //public void GenerateTemplate()
         //{
         //    StringBuilder sb = new StringBuilder();
@@ -1747,18 +1745,18 @@ namespace CopyWordsWPF.ViewModel.Commands
 
         internal class WordToPageMap
         {
-            public string FirstWord { get; private set; }
-
-            public string LastWord { get; private set; }
-
-            public string FileName { get; private set; }
-
             public WordToPageMap(string fileName, string firstWord, string lastWord)
             {
                 FileName = fileName;
                 FirstWord = firstWord;
                 LastWord = lastWord;
             }
+
+            public string FirstWord { get; private set; }
+
+            public string LastWord { get; private set; }
+
+            public string FileName { get; private set; }
         }
     }
 }

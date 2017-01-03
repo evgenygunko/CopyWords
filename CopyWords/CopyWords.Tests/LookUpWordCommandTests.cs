@@ -12,7 +12,7 @@ namespace CopyWords.Tests
             string result = LookUpWordCommand.GetWordToLookupFromUrl(@"http://ordnet.dk/ddo/ordbog?query=kigge&search=S%C3%B8g");
             Assert.AreEqual("kigge", result);
         }
-        
+
         [TestMethod]
         public void GetWordToLookupFromUrl_ReturnsRefusionsopgørelse()
         {

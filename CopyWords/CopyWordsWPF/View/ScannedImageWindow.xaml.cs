@@ -2,13 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace CopyWordsWPF.View
 {
     // see example here: http://www.codeproject.com/Articles/97871/WPF-simple-zoom-and-drag-support-in-a-ScrollViewer
-    // Example from code project is better than ZoomBorder class, becuase ZoomBorder doesn't work 
+    // Example from code project is better than ZoomBorder class, becuase ZoomBorder doesn't work
     // with ScrollViewer.
     public partial class ScannedImageWindow : Window
     {
@@ -25,7 +24,7 @@ namespace CopyWordsWPF.View
 
             scrollViewer.ScrollChanged += OnScrollViewerScrollChanged;
             scrollViewer.MouseLeftButtonUp += OnMouseLeftButtonUp;
-            scrollViewer.PreviewMouseLeftButtonUp += OnMouseLeftButtonUp;            
+            scrollViewer.PreviewMouseLeftButtonUp += OnMouseLeftButtonUp;
             scrollViewer.PreviewMouseLeftButtonDown += OnMouseLeftButtonDown;
             scrollViewer.MouseMove += OnMouseMove;
             scrollViewer.PreviewMouseWheel += scrollViewer_PreviewMouseWheel;
@@ -158,7 +157,7 @@ namespace CopyWordsWPF.View
                     scrollViewer.ScrollToVerticalOffset(newOffsetY);
                 }
             }
-        } 
+        }
 
         #endregion
 
@@ -197,6 +196,6 @@ namespace CopyWordsWPF.View
             _clickCounter = 0;
         }
 
-        #endregion   
+        #endregion
     }
 }

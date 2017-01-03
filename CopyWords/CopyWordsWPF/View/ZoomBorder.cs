@@ -49,8 +49,8 @@ namespace CopyWordsWPF.View
             set { SetValue(YScaleProperty, value); }
         }
 
-        #endregion  
-        
+        #endregion
+
         private UIElement _child = null;
         private Point _origin;
         private Point _start;
@@ -63,9 +63,9 @@ namespace CopyWordsWPF.View
             get { return base.Child; }
             set
             {
-                if (value != null && value != this.Child)
+                if (value != null && value != Child)
                 {
-                    this.Initialize(value);
+                    Initialize(value);
                 }
 
                 base.Child = value;
@@ -74,7 +74,7 @@ namespace CopyWordsWPF.View
 
         public void Initialize(UIElement element)
         {
-            this._child = element;
+            _child = element;
             if (_child != null)
             {
                 TransformGroup group = new TransformGroup();
@@ -85,10 +85,10 @@ namespace CopyWordsWPF.View
                 _child.RenderTransform = group;
                 _child.RenderTransformOrigin = new Point(0.0, 0.0);
 
-                this.MouseWheel += child_MouseWheel;
-                this.MouseLeftButtonDown += child_MouseLeftButtonDown;
-                this.MouseMove += child_MouseMove;
-                this.PreviewMouseRightButtonDown += new MouseButtonEventHandler(
+                MouseWheel += child_MouseWheel;
+                MouseLeftButtonDown += child_MouseLeftButtonDown;
+                MouseMove += child_MouseMove;
+                PreviewMouseRightButtonDown += new MouseButtonEventHandler(
                   child_PreviewMouseRightButtonDown);
             }
 
@@ -96,29 +96,9 @@ namespace CopyWordsWPF.View
 
             _clickTimer = new DispatcherTimer();
             _clickTimer.Interval = TimeSpan.FromMilliseconds(300);
-            _clickTimer.Tick += EvaluateClicks;        
+            _clickTimer.Tick += EvaluateClicks;
         }
 
-        private void EvaluateClicks(object sender, EventArgs e)
-        {
-            _clickTimer.Stop();
-            
-            if (_child != null)
-            {
-                _child.ReleaseMouseCapture();
-                this.Cursor = Cursors.Arrow;
-            }
-
-            // if it was double click
-            if (_clickCounter == 2)
-            {
-                _child.ReleaseMouseCapture();
-                Reset();
-            }
-
-            _clickCounter = 0;
-        }
-        
         #region Public methods
 
         public void Reset()
@@ -169,6 +149,26 @@ namespace CopyWordsWPF.View
             }
         }
 
+        private void EvaluateClicks(object sender, EventArgs e)
+        {
+            _clickTimer.Stop();
+
+            if (_child != null)
+            {
+                _child.ReleaseMouseCapture();
+                Cursor = Cursors.Arrow;
+            }
+
+            // if it was double click
+            if (_clickCounter == 2)
+            {
+                _child.ReleaseMouseCapture();
+                Reset();
+            }
+
+            _clickCounter = 0;
+        }
+
         private void SetInitialZoom()
         {
             if (_child != null)
@@ -196,7 +196,7 @@ namespace CopyWordsWPF.View
             return (ScaleTransform)((TransformGroup)element.RenderTransform)
               .Children.First(tr => tr is ScaleTransform);
         }
-        
+
         #region Child Events
 
         private void child_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -242,7 +242,7 @@ namespace CopyWordsWPF.View
                 var tt = GetTranslateTransform(_child);
                 _start = e.GetPosition(this);
                 _origin = new Point(tt.X, tt.Y);
-                this.Cursor = Cursors.Hand;
+                Cursor = Cursors.Hand;
                 _child.CaptureMouse();
 
                 _clickCounter++;
@@ -252,7 +252,7 @@ namespace CopyWordsWPF.View
 
         private void child_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            this.Reset();
+            Reset();
         }
 
         private void child_MouseMove(object sender, MouseEventArgs e)

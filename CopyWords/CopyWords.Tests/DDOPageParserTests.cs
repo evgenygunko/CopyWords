@@ -33,7 +33,7 @@ namespace CopyWords.Tests
         {
             DDOPageParser parser = new DDOPageParser();
             parser.LoadStream(null);
-        } 
+        }
 
         #endregion
 
@@ -361,6 +361,6 @@ namespace CopyWords.Tests
             Assert.AreEqual(0, examples.Count);
         }
 
-        #endregion        
+        #endregion
     }
 }

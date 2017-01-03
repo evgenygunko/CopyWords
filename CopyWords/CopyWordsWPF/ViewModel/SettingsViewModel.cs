@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CopyWordsWPF.ViewModel.Commands;
 
 namespace CopyWordsWPF.ViewModel
 {
@@ -17,10 +14,10 @@ namespace CopyWordsWPF.ViewModel
 
         private string _ankiSoundsFolder;
         private string _mp3gainPath;
-        
+
         private bool _isValidating = false;
         private Dictionary<string, string> _errors = new Dictionary<string, string>();
-   
+
         public SettingsViewModel()
         {
             _ankiSoundsFolder = CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder;
@@ -30,8 +27,8 @@ namespace CopyWordsWPF.ViewModel
         /// <summary>
         /// Gets or sets path to collection.media in Anki.
         /// </summary>
-        public string AnkiSoundsFolder 
-        { 
+        public string AnkiSoundsFolder
+        {
             get { return _ankiSoundsFolder; }
             set
             {
@@ -45,7 +42,7 @@ namespace CopyWordsWPF.ViewModel
         /// <summary>
         /// Gets or sets path to mp3gain.exe.
         /// </summary>
-        public string Mp3gainPath 
+        public string Mp3gainPath
         {
             get { return _mp3gainPath; }
             set
@@ -59,10 +56,10 @@ namespace CopyWordsWPF.ViewModel
 
         public bool AreFieldsNotEmpty
         {
-            get 
+            get
             {
                 bool valueIsMissing = string.IsNullOrEmpty(_ankiSoundsFolder) || string.IsNullOrEmpty(_mp3gainPath);
-                return !valueIsMissing; 
+                return !valueIsMissing;
             }
         }
 
@@ -99,7 +96,7 @@ namespace CopyWordsWPF.ViewModel
                 {
                     return result;
                 }
-                
+
                 _errors.Remove(columnName);
 
                 if (columnName == AnkiSoundsFolderProperty)
@@ -122,7 +119,7 @@ namespace CopyWordsWPF.ViewModel
                 {
                     _errors.Add(columnName, result);
                 }
-          
+
                 return result;
             }
         }

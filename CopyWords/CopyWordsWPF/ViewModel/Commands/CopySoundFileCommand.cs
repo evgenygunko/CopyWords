@@ -2,9 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
 using CopyWordsWPF.Parsers;
 
 namespace CopyWordsWPF.ViewModel.Commands
@@ -13,11 +11,11 @@ namespace CopyWordsWPF.ViewModel.Commands
     {
         private WordViewModel _wordViewModel;
         private PlaySoundCommand _playSound = new PlaySoundCommand();
-                
+
         public CopySoundFileCommand(WordViewModel wordViewModel)
         {
             _wordViewModel = wordViewModel;
-            _playSound = new PlaySoundCommand();                
+            _playSound = new PlaySoundCommand();
         }
 
         public override void Execute(object parameter)
@@ -40,8 +38,8 @@ namespace CopyWordsWPF.ViewModel.Commands
                     string.Format("'AnkiSoundsFolder' parameter in Settings must contain path to an existing folder. Please select a valid path in Settings."),
                     "Cannot copy mp3 file",
                     MessageBoxButton.OK,
-                    MessageBoxImage.Warning); 
-                
+                    MessageBoxImage.Warning);
+
                 return;
             }
 
@@ -59,16 +57,16 @@ namespace CopyWordsWPF.ViewModel.Commands
 
             // save text for Anki into clipboard
             Clipboard.SetText(string.Format("[sound:{0}.mp3]", _wordViewModel.Word));
-            
+
             // copy file into Anki's sounds folder
             if (CopyWord(fromFile, destinationFile))
             {
                 if (_playSound.CanExecute(parameter))
                 {
                     // play normilized file
-                    _playSound.Execute(fromFile); 
+                    _playSound.Execute(fromFile);
                 }
-                                
+
                 _wordViewModel.OnFileCopied();
             }
         }
@@ -99,7 +97,8 @@ namespace CopyWordsWPF.ViewModel.Commands
         {
             if (File.Exists(destination))
             {
-                if (MessageBox.Show(string.Format("File '{0}' already exists. Overwrite?", destination),
+                if (MessageBox.Show(
+                    string.Format("File '{0}' already exists. Overwrite?", destination),
                     "File already exists",
                     MessageBoxButton.YesNo) != MessageBoxResult.Yes)
                 {
@@ -118,7 +117,7 @@ namespace CopyWordsWPF.ViewModel.Commands
                 MessageBox.Show(
                     string.Format("Cannot find mp3gain.exe by path '{0}'. Please select a valid path in Settings.", CopyWordsWPF.Properties.Settings.Default.Mp3gainPath),
                     "Cannot normilize mp3 file",
-                    MessageBoxButton.OK, 
+                    MessageBoxButton.OK,
                     MessageBoxImage.Warning);
 
                 return false;
@@ -159,8 +158,8 @@ namespace CopyWordsWPF.ViewModel.Commands
 
             File.Copy(tempAsciiFile, fromFile, true);
             File.Delete(tempAsciiFile);
-    
+
             return true;
-        }        
+        }
     }
 }

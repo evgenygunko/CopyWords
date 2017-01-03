@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Threading;
-using CopyWordsWPF.ViewModel.Commands;
+﻿using CopyWordsWPF.ViewModel.Commands;
 
 namespace CopyWordsWPF.ViewModel
 {
@@ -13,7 +6,7 @@ namespace CopyWordsWPF.ViewModel
     {
         private WordViewModel _wordViewModel;
         private LookUpWordCommand _lookUpWordCommand;
-        private ShowSettingsDialogCommand _showSettingsDialogCommand;        
+        private ShowSettingsDialogCommand _showSettingsDialogCommand;
 
         private string _lookUp;
 

@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.IO;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CopyWords.Tests
@@ -20,7 +19,8 @@ namespace CopyWords.Tests
                 fileContent = sr.ReadToEnd();
             }
 
-            Assert.IsFalse(string.IsNullOrEmpty(fileContent),
+            Assert.IsFalse(
+                string.IsNullOrEmpty(fileContent),
                 string.Format(CultureInfo.InvariantCulture, "Cannot read content of {0} file.", fileName));
 
             return new MemoryStream(encoding.GetBytes(fileContent));

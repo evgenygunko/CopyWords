@@ -1,6 +1,4 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
@@ -9,7 +7,7 @@ namespace CopyWordsWPF.ViewModel.Commands
         public override void Execute(object parameter)
         {
             string text = parameter as string;
-            Clipboard.SetText(text);           
-        }        
+            Clipboard.SetText(text);
+        }
     }
 }

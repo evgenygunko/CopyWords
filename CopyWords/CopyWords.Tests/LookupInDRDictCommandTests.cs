@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
-using System.Threading;
 using CopyWordsWPF.ViewModel.Commands;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -37,7 +35,7 @@ namespace CopyWords.Tests
             string result = command.GetFileName("absint");
 
             Assert.AreEqual("0013.jpg", result);
-        } 
+        }
 
         [TestMethod]
         public void GetFileName_Returns0014_ForAbstract()
@@ -176,10 +174,10 @@ namespace CopyWords.Tests
             LookupInDRDictCommand command = new LookupInDRDictCommand();
             string result = command.GetFileName("går");
 
-            // this word is between 2 codes, 250 for 'gøe' and 251 for 'gåt'. The search will return 
+            // this word is between 2 codes, 250 for 'gøe' and 251 for 'gåt'. The search will return
             // the first code.
             Assert.AreEqual("0250.jpg", result);
-        } 
+        }
 
         #endregion
 
@@ -210,7 +208,7 @@ namespace CopyWords.Tests
                             key);
 
                         Assert.Fail(message);
-                    }                    
+                    }
                 }
 
                 lastCode = wordsMapApproxDict[key];
@@ -230,13 +228,13 @@ namespace CopyWords.Tests
             {
                 if (string.CompareOrdinal(wordsMapAccurateList[i].LastWord, wordsMapAccurateList[i].FirstWord) < 0)
                 {
-                    Assert.Fail("Last word must be greater than or equal to first word");                
+                    Assert.Fail("Last word must be greater than or equal to first word");
                 }
 
                 if (string.CompareOrdinal(wordsMapAccurateList[i].FirstWord, lastItem.LastWord) < 0)
                 {
                     Assert.Fail("First word must be grater than or equal to the last word in the previous item.");
-                }                
+                }
             }
         }
 
@@ -294,6 +292,6 @@ namespace CopyWords.Tests
 
                 Assert.Fail(message);
             }
-        }        
+        }
     }
 }

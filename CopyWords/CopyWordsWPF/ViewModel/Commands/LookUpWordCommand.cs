@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
-using System.Windows.Input;
 using CopyWordsWPF.Parsers;
 
 namespace CopyWordsWPF.ViewModel.Commands
@@ -59,9 +52,9 @@ namespace CopyWordsWPF.ViewModel.Commands
             }
 
             slovardkUrl = GetSlovardkUri(wordToLookUp);
-            
+
             // Download and parse a page from DDO
-            Stream ddoStream = DownloadPage(ddoUrl); 
+            Stream ddoStream = DownloadPage(ddoUrl);
             if (ddoStream == null)
             {
                 return;
@@ -150,6 +143,6 @@ namespace CopyWordsWPF.ViewModel.Commands
             //Get the Stream returned from the response
             Stream stream = fileResp.GetResponseStream();
             return stream;
-        }        
+        }
     }
 }

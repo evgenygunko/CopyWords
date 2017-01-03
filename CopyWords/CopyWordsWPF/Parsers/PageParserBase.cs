@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using HtmlAgilityPack;
 
 namespace CopyWordsWPF.Parsers
@@ -62,6 +59,6 @@ namespace CopyWordsWPF.Parsers
         {
             var element = _htmlDocument.DocumentNode.SelectSingleNode(string.Format("//*[@id='{0}']", id));
             return element;
-        }       
+        }
     }
 }

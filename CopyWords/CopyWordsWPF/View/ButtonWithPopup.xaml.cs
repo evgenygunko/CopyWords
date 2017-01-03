@@ -48,7 +48,7 @@ namespace CopyWordsWPF.View
         }
 
         #endregion
-        
+
         public ButtonWithPopup()
         {
             InitializeComponent();

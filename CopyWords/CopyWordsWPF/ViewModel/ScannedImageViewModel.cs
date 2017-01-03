@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using CopyWordsWPF.ViewModel.Commands;
 
@@ -19,7 +16,7 @@ namespace CopyWordsWPF.ViewModel
         private bool _isPreviousPageAvailable;
         private bool _isNextPageAvaliable;
         private string _currentPage;
-        private string _title;        
+        private string _title;
         private BitmapImage _currentPageImage;
         private List<string> _allPages;
 
@@ -77,7 +74,7 @@ namespace CopyWordsWPF.ViewModel
             {
                 SetProperty<string>(ref _title, value);
             }
-        } 
+        }
 
         #endregion
 
@@ -88,7 +85,7 @@ namespace CopyWordsWPF.ViewModel
             string filePath = Path.Combine(CopyWordsWPF.Properties.Settings.Default.DRDictPath, imageName);
             return filePath;
         }
-        
+
         private void SetCurrentImage()
         {
             var bitmap = new BitmapImage(new Uri(GetImageFilePath(_currentPage)));
@@ -98,7 +95,7 @@ namespace CopyWordsWPF.ViewModel
             IsPreviousPageAvaliable = currPageIndex > 0;
             IsNextPageAvaliable = currPageIndex < (_allPages.Count - 1);
         }
-        
+
         private void MoveForward()
         {
             int currPageIndex = _allPages.IndexOf(_currentPage);
@@ -115,6 +112,6 @@ namespace CopyWordsWPF.ViewModel
             SetCurrentImage();
         }
 
-        #endregion        
+        #endregion
     }
 }

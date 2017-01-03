@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using HtmlAgilityPack;
 
 namespace CopyWordsWPF.Parsers
@@ -25,7 +24,7 @@ namespace CopyWordsWPF.Parsers
                         string translations = td.InnerHtml.Trim();
                         if (translations.Length > 0 && !translations.Contains("You need to upgrade your Flash Player"))
                         {
-                            string translation = string.Empty; 
+                            string translation = string.Empty;
                             foreach (var s in translations.Split(new string[] { "<br>" }, StringSplitOptions.RemoveEmptyEntries))
                             {
                                 translation += s.Trim() + Environment.NewLine;
@@ -41,9 +40,9 @@ namespace CopyWordsWPF.Parsers
                                 danishWord = DecodeText(danishWordElement.InnerText);
                             }
 
-                            russianTranslations.Add(new RussianTranslation(danishWord, translation));                            
+                            russianTranslations.Add(new RussianTranslation(danishWord, translation));
                         }
-                    }                    
+                    }
                 }
             }
 
