@@ -1,0 +1,65 @@
+﻿<Window xmlns:View="clr-namespace:CopyWordsWPF.View"  x:Class="CopyWordsWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:CopyWordsWPF.Properties"
+        xmlns:converters="clr-namespace:CopyWordsWPF.ViewModel.Converters" 
+        Title="CopyWords"
+        Icon="Resourses/copy.ico"
+        Height="{Binding Source={x:Static p:Settings.Default}, Path=Height, Mode=TwoWay}"
+        Width="{Binding Source={x:Static p:Settings.Default}, Path=Width, Mode=TwoWay}"
+        Left="{Binding Source={x:Static p:Settings.Default}, Path=Left, Mode=TwoWay}"
+        Top="{Binding Source={x:Static p:Settings.Default}, Path=Top, Mode=TwoWay}" Closing="Window_Closing">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Setter Property="Height" Value="23"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="Margin" Value="5 5 5 5"></Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5 5 5 5"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        </Style>
+    </Window.Resources>
+    
+    <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+        
+            <!-- Lookup word panel -->
+            <Grid Grid.Row="0" FocusManager.FocusedElement="{Binding ElementName=txtLookUp}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*" MinWidth="50"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" FontSize="16">Search:</TextBlock>
+                <TextBox Grid.Column="1" FontSize="16" x:Name="txtLookUp"
+                         Text="{Binding Path=LookUp, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                <Button Grid.Column="2" Height="32" Width="70" 
+                        Command="{Binding Path=LookUpWordCommand}"
+                        IsEnabled="{Binding LookUp, Converter={converters:StringNullOrEmptyToBoolConverter}}" IsDefault="True">Slå op</Button>
+            </Grid>
+        
+            <!-- Parsed word user control -->
+            <View:WordView Grid.Row="1" x:Name="ucWordView" Margin="5 5 5 5"
+                           DataContext="{Binding Path=WordViewModel}"/>
+        </Grid>
+
+        <ScrollViewer.ContextMenu>
+            <ContextMenu>
+                <MenuItem Header="Settings" Command="{Binding Path=ShowSettingsDialogCommand}">
+                    <MenuItem.Icon>
+                        <Image Source="/CopyWordsWPF;component/Resourses/settings.png" />
+                    </MenuItem.Icon>
+                </MenuItem>
+            </ContextMenu>
+        </ScrollViewer.ContextMenu>
+    </ScrollViewer>
+</Window>

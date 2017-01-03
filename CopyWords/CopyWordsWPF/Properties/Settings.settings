@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CopyWordsWPF.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Width" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">700</Value>
+    </Setting>
+    <Setting Name="Height" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">600</Value>
+    </Setting>
+    <Setting Name="Left" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Top" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="AnkiSoundsFolder" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Temp\1</Value>
+    </Setting>
+    <Setting Name="Mp3gainPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Evgeny\Tools\mp3gain-win-1_3_4\mp3gain.exe</Value>
+    </Setting>
+    <Setting Name="DRDictPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Evgeny\Dropbox\Danish\Большой датско-русский словарь\DATA</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

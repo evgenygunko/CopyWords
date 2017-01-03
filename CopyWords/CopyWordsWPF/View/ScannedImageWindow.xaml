@@ -1,0 +1,68 @@
+﻿<Window x:Class="CopyWordsWPF.View.ScannedImageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:view="clr-namespace:CopyWordsWPF.View" 
+        xmlns:converters="clr-namespace:CopyWordsWPF.ViewModel.Converters" 
+        Title="{Binding Path=Title}" Height="850" Width="1240" 
+        WindowStartupLocation="CenterScreen" 
+        x:Name="wndScannedImageWindow">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10"
+                    HorizontalAlignment="Right">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Width" Value="70" />
+                    <Setter Property="Height" Value="40" />
+                </Style>
+            </StackPanel.Resources>
+
+            <Button Margin="0 0 15 0" ToolTip="Zoom out"
+                    x:Name="btnZooomOut" Click="btnZooomOut_Click">
+                <Image Source="/CopyWordsWPF;component/Resourses/Zoom-Out-icon.png" />
+            </Button>
+
+            <Button Margin="0 0 55 0" ToolTip="Zoom in"
+                    x:Name="btnZoomIn" Click="btnZoomIn_Click">
+                <Image Source="/CopyWordsWPF;component/Resourses/Zoom-In-icon.png" />
+            </Button>
+            
+            <Button Margin="0 0 15 0" ToolTip="Previous page"
+                    IsEnabled="{Binding Path=IsPreviousPageAvaliable}"
+                    Command="{Binding Path=ChangePageCommand}"
+                    CommandParameter="false">
+                <Image Source="/CopyWordsWPF;component/Resourses/arrow_left.png" />
+            </Button>
+            
+            <Button ToolTip="Next page"
+                    IsEnabled="{Binding Path=IsNextPageAvaliable}"
+                    Command="{Binding Path=ChangePageCommand}"
+                    CommandParameter="true">
+                <Image Source="/CopyWordsWPF;component/Resourses/arrow_right.png" />
+            </Button>
+            
+        </StackPanel>
+        
+        <ScrollViewer Name="scrollViewer" Grid.Row="1" Background="Gray"
+              VerticalScrollBarVisibility="Visible" 
+              HorizontalScrollBarVisibility="Visible">
+
+            <Grid Name="grid" RenderTransformOrigin="0.5,0.5">
+                <Grid.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform x:Name="scaleTransform"/>
+                    </TransformGroup>
+                </Grid.LayoutTransform>
+                <Viewbox Grid.Column="0" Grid.Row="0">
+                    <Image x:Name="image" Source="{Binding Path=CurrentPageImage}" />
+                </Viewbox>
+            </Grid>
+
+        </ScrollViewer>
+    </Grid>
+</Window>

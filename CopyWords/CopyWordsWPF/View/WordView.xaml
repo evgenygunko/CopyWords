@@ -1,0 +1,285 @@
+﻿<UserControl x:Class="CopyWordsWPF.View.WordView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:converters="clr-namespace:CopyWordsWPF.ViewModel.Converters" 
+             xmlns:view="clr-namespace:CopyWordsWPF.View" 
+             mc:Ignorable="d" 
+             d:DesignHeight="400" d:DesignWidth="500">    
+    <UserControl.Resources>
+        <BeginStoryboard x:Key="FileCopiedStoryBoard">
+            <Storyboard>
+                <BooleanAnimationUsingKeyFrames 
+                                                    Storyboard.TargetName="popupCopySoundFile" 
+                                                    Storyboard.TargetProperty="IsOpen"
+                                                    Duration="0:0:1" FillBehavior="HoldEnd">
+
+                    <!-- All the key frames below are DiscreteBooleanKeyFrames. Discrete key frames create 
+                                                        sudden "jumps" between values (no interpolation). Only discrete key frames can be used 
+                                                        for Boolean key frame animations. 
+                                                    -->
+                    <DiscreteBooleanKeyFrame Value="True" KeyTime="0:0:0" />
+                    <DiscreteBooleanKeyFrame Value="False" KeyTime="0:0:1" />
+                </BooleanAnimationUsingKeyFrames>
+            </Storyboard>
+        </BeginStoryboard>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.Resources>
+            <Style TargetType="view:ButtonWithPopup" x:Key="ButtonWithPopup">
+                <Setter Property="Width" Value="50"></Setter>
+                <Setter Property="Height" Value="25"></Setter>
+                <Setter Property="Margin" Value="5 5 5 5"></Setter>
+                <Setter Property="ButtonText" Value="copy"></Setter>
+            </Style>
+            <Style TargetType="TextBlock" x:Key="Normal">
+                <Setter Property="VerticalAlignment" Value="Center"></Setter>
+                <Setter Property="Margin" Value="5 0 0 5"></Setter>
+                <Setter Property="Foreground" Value="#333333"></Setter>
+                <Setter Property="FontSize" Value="16"></Setter>
+            </Style>
+            <Style TargetType="Border" x:Key="LightGrayBorder">
+                <Setter Property="BorderBrush" Value="#CCCCCC"></Setter>
+                <Setter Property="BorderThickness" Value="1"></Setter>
+                <Setter Property="Background" Value="#eaeff2"></Setter>
+                <Setter Property="Margin" Value="5"></Setter>
+                <Setter Property="Height" Value="25"></Setter>
+                <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <!-- word -->
+        <TextBlock Grid.Row="0" Grid.Column="0" 
+                   FontSize="24" Foreground="#cc0000" 
+                   x:Name="tblWord"
+                   Text="{Binding Word, FallbackValue=underholdning}"></TextBlock>
+        <view:ButtonWithPopup Grid.Row="0" Grid.Column="1"
+                   Style="{StaticResource ButtonWithPopup}"
+                   IsEnabled="{Binding Word, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                   Command="{Binding Path=CopyTextCommand}"
+                   CommandParameter="{Binding Path=Word}" />
+
+        <!-- Betydning -->
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!-- Betydninger caption -->
+            <TextBlock Grid.Row="0" Foreground="#194C66" FontSize="22">Betydninger</TextBlock>
+            <Line Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                VerticalAlignment="Center" Stroke="#194C66" StrokeThickness="2"
+                Margin="0 0 0 5"
+                X2="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" />
+
+            <!-- Betydning -->
+            <TextBlock Grid.Row="2" Style="{StaticResource Normal}"
+                   TextWrapping="Wrap"
+                   Text="{Binding Definitions, FallbackValue='noget der morer, glæder eller adspreder nogen, fx optræden, et lettere og ikke særlig krævende åndsprodukt eller en fornøjelig beskæftigelse'}">
+            </TextBlock>
+
+            <view:ButtonWithPopup Grid.Row="2" Grid.Column="2"
+                   Style="{StaticResource ButtonWithPopup}"
+                   VerticalAlignment="Top"
+                   IsEnabled="{Binding Definitions, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                   Command="{Binding Path=CopyTextCommand}"
+                   CommandParameter="{Binding Path=Definitions}" />
+        </Grid>
+
+        <!-- Russian Translations -->
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="25"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <!-- caption -->
+            <TextBlock Foreground="#194C66" FontSize="22">Translations</TextBlock>
+            <Button Grid.Row="0" Grid.Column="1" Width="50" Height="25" Margin="5"
+                    IsEnabled="{Binding Word, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                    Command="{Binding Path=LookupInDRDictCommand}"
+                    CommandParameter="{Binding Path=Word}">DR dict</Button>
+            <Line Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"
+                    VerticalAlignment="Center" Stroke="#194C66" StrokeThickness="2"
+                    Margin="0 0 0 5"
+                    X2="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" />
+
+            <!-- Russian Translations-->
+            <Grid Grid.Row="2" Grid.ColumnSpan="2" x:Name="grdRussianTranslations">
+                <ItemsControl ItemsSource="{Binding Path=RussianTranslations}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                    <ColumnDefinition Width="*"></ColumnDefinition>
+                                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                
+                                <TextBlock Grid.Column="0" Text="{Binding Path=DanishWord}" TextWrapping="Wrap" Margin="6" FontSize="16"
+                                           FontWeight="SemiBold"/>
+                                <TextBlock Grid.Column="1" Text="{Binding Path=Translation}" TextWrapping="Wrap" Margin="6" FontSize="16" />
+
+                                <view:ButtonWithPopup Grid.Column="2"
+                                       Style="{StaticResource ButtonWithPopup}"
+                                       VerticalAlignment="Top"
+                                       IsEnabled="{Binding Translation, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                                       Command="{Binding Path=DataContext.CopyTextCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}"
+                                       CommandParameter="{Binding Path=Translation}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+
+            <Line Grid.Row="3" Grid.ColumnSpan="2"
+                    VerticalAlignment="Bottom" Stroke="#194C66" StrokeThickness="2"
+                    Margin="0 0 0 5"
+                    X2="{Binding Path=ActualWidth, RelativeSource={RelativeSource Self}}" />
+        </Grid>
+
+        <!-- pronunciation -->
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" x:Name="grdPronunciation">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!-- UDTALE -->
+            <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource LightGrayBorder}">
+                <TextBlock VerticalAlignment="Center">UDTALE</TextBlock>
+            </Border>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Style="{StaticResource Normal}"
+                       Text="{Binding Pronunciation, FallbackValue='[ˈɔnʌˌhʌlˀneŋ]'}"></TextBlock>
+
+            <view:ButtonWithPopup Grid.Row="0" Grid.Column="2"
+                   Style="{StaticResource ButtonWithPopup}"
+                   IsEnabled="{Binding Pronunciation, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                   Command="{Binding Path=CopyTextCommand}"
+                   CommandParameter="{Binding Path=Pronunciation}" />
+            
+            <!-- sound -->
+            <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource LightGrayBorder}">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">LYD</TextBlock>
+            </Border>
+            
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                <Button Width="25" Height="25" HorizontalAlignment="Left" Margin="5 5 5 5"                    
+                   IsEnabled="{Binding Sound, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                   Command="{Binding Path=PlaySoundCommand}"
+                   CommandParameter="{Binding Path=Sound}"
+                   Background="Transparent">
+                    <Image Source="/CopyWordsWPF;component/Resourses/speaker.gif" Width="13" Height="16" />
+                </Button>
+
+                <Button Width="25" Height="25" HorizontalAlignment="Left" Margin="5 5 5 5"                    
+                       IsEnabled="{Binding Sound, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                       Command="{Binding Path=CopySoundFileCommand}" 
+                       Background="Transparent"
+                       x:Name="btnCopySoundFile">
+                    <Image Source="/CopyWordsWPF;component/Resourses/Save.png" Width="16" Height="16" />
+                </Button>
+
+                <Popup x:Name="popupCopySoundFile" PlacementTarget="{Binding ElementName=btnCopySoundFile}"
+                        VerticalOffset="-20"
+                        HorizontalOffset="20" 
+                        AllowsTransparency="True"
+                        Visibility="Collapsed">                    
+                    <Border BorderThickness="1" 
+                            BorderBrush="Black"
+                            CornerRadius="4" 
+                            Background="{DynamicResource {x:Static SystemColors.MenuBrushKey}}">
+                        <TextBlock Margin="5 5 5 5">File has been saved</TextBlock>
+                    </Border>
+                </Popup>
+            </StackPanel>
+        </Grid>        
+        
+        <!-- endings -->
+        <Grid Grid.Row="4" Grid.Column="0" x:Name="grdEndings">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Border Grid.Column="0" Style="{StaticResource LightGrayBorder}">
+                <TextBlock VerticalAlignment="Center">BØJNING</TextBlock>
+            </Border>
+
+            <TextBlock Grid.Column="1" Style="{StaticResource Normal}"
+                       Text="{Binding Endings, FallbackValue=-en}"></TextBlock>
+        </Grid>        
+        <view:ButtonWithPopup Grid.Row="4" Grid.Column="1"
+                   Style="{StaticResource ButtonWithPopup}"
+                   IsEnabled="{Binding Endings, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                   Command="{Binding Path=CopyTextCommand}"
+                   CommandParameter="{Binding Path=Endings}" />
+
+        <!-- EKSEMPLER -->
+        <Grid Grid.Row="5" Grid.Column="0" x:Name="grdExamples">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>                    
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="0 10 0 0" FontSize="16" Foreground="#194C66" FontWeight="SemiBold">Eksempler</TextBlock>
+            
+            <ItemsControl Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Examples}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Border Margin="30 3 0 5" CornerRadius="8" Background="#eaeff2">
+                                <TextBlock Text="{Binding Path=.}" TextWrapping="Wrap" Margin="6" FontSize="16" />
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+        <view:ButtonWithPopup Grid.Row="5" Grid.Column="1"
+                   Style="{StaticResource ButtonWithPopup}"
+                   VerticalAlignment="Top"
+                   IsEnabled="{Binding ExamplesString, Converter={converters:StringNullOrEmptyToBoolConverter}}"
+                   Command="{Binding Path=CopyTextCommand}"
+                   CommandParameter="{Binding Path=ExamplesString}" />        
+    </Grid>
+</UserControl>
