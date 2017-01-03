@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopyWords.Tests", "CopyWord
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CopyWordsWPF", "CopyWordsWPF\CopyWordsWPF.csproj", "{621D2E27-B4F9-4870-93CB-3B43FE393301}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BB1D02D0-3D74-44A5-841D-ED39495D2B60}"
+	ProjectSection(SolutionItems) = preProject
+		RuleSet.ruleset = RuleSet.ruleset
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
