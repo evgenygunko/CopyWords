@@ -87,7 +87,7 @@ namespace CopyWordsWPF.ViewModel.Commands
 
             if (!File.Exists(destFileFullPath))
             {
-                throw new FileDownloadException(string.Format("Cannot find sound file in a temp folder '{0}'. It wasn't propably been downloaded.", destFileFullPath));
+                throw new FileDownloadException(string.Format("Cannot find sound file in a temp folder '{0}'. It probably hasn't been downloaded.", destFileFullPath));
             }
 
             return destFileFullPath;
@@ -116,7 +116,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             {
                 MessageBox.Show(
                     string.Format("Cannot find mp3gain.exe by path '{0}'. Please select a valid path in Settings.", CopyWordsWPF.Properties.Settings.Default.Mp3gainPath),
-                    "Cannot normilize mp3 file",
+                    "Cannot normalize mp3 file",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
 
@@ -149,7 +149,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             {
                 MessageBox.Show(
                     "mp3gain threw exception: " + Environment.NewLine + ex.ToString(),
-                    "Cannot normilize mp3 file",
+                    "Cannot normalize mp3 file",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
 
