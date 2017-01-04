@@ -924,6 +924,7 @@ namespace CopyWordsWPF.ViewModel.Commands
 
         #region Fill the approx map
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1505:AvoidUnmaintainableCode", Justification = "reviewed")]
         private void FillTheApproxMap()
         {
             _wordsMapApproxDict.Add("0013.jpg", "abb");

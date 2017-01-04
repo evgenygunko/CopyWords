@@ -11,8 +11,6 @@ namespace CopyWords.Tests
         [DeploymentItem(@"TestPages\slovardk\AfgørelsePage.html")]
         public void LoadStream_ReadsInCorrectEncoding()
         {
-            SlovardkPageParser parser = new SlovardkPageParser();
-
             string fileContent;
 
             using (MemoryStream ms = Helpers.GetSimpleHTMLPageStream("AfgørelsePage.html", System.Text.Encoding.GetEncoding(1251)))
