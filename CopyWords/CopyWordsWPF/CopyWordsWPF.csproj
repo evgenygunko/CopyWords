@@ -101,7 +101,6 @@
     <Compile Include="View\WordView.xaml.cs">
       <DependentUpon>WordView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ZoomBorder.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

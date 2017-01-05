@@ -129,6 +129,8 @@ namespace CopyWordsWPF.ViewModel.Commands
 
         private void FillThePreciseMap()
         {
+            // the would be too tedious and big job to fill all pages with fist and end words,
+            // so we will use approximation, see FillTheApproxMap() method.
             _wordsMapAccurateList = new List<WordToPageMap>()
             {
                 new WordToPageMap("0013.jpg", "a", "absint"),
@@ -1725,24 +1727,6 @@ namespace CopyWordsWPF.ViewModel.Commands
         }
 
         #endregion
-
-        //public void GenerateTemplate()
-        //{
-        //    StringBuilder sb = new StringBuilder();
-        //    for (int i = 30; i < 798; i++)
-        //    {
-        //        //sb.AppendFormat(
-        //        //    "                new WordToPageMap(\"{0}.jpg\", \"\", \"\"),",
-        //        //    i.ToString().PadLeft(4, '0'));
-
-        //         sb.AppendFormat(
-        //            "            _wordsMapApproxDict.Add(\"{0}.jpg\", \"\");",
-        //            i.ToString().PadLeft(4, '0'));
-        //        sb.AppendLine();
-        //    }
-
-        //    Console.Write(sb.ToString());
-        //}
 
         internal class WordToPageMap
         {

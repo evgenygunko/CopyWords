@@ -7,8 +7,6 @@ using System.Windows.Threading;
 namespace CopyWordsWPF.View
 {
     // see example here: http://www.codeproject.com/Articles/97871/WPF-simple-zoom-and-drag-support-in-a-ScrollViewer
-    // Example from code project is better than ZoomBorder class, becuase ZoomBorder doesn't work
-    // with ScrollViewer.
     public partial class ScannedImageWindow : Window
     {
         private Point? _lastCenterPositionOnTarget;

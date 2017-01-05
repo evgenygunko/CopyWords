@@ -91,7 +91,7 @@ namespace CopyWordsWPF.Parsers
         }
 
         /// <summary>
-        /// Gets definitions for found word. It will contatenate different definitions into one string with line breaks.
+        /// Gets definitions for found word. It will concatenate different definitions into one string with line breaks.
         /// </summary>
         public string ParseDefinitions()
         {
@@ -123,7 +123,7 @@ namespace CopyWordsWPF.Parsers
         }
 
         /// <summary>
-        /// Gets exampels for found word. It will also add a full stop at the end of each example.
+        /// Gets examples for found word. It will also add a full stop at the end of each example.
         /// </summary>
         public List<string> ParseExamples()
         {
