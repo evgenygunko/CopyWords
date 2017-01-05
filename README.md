@@ -14,9 +14,10 @@ New cards with new words can be added into the collection so that a user can lea
 - Forward card template (when a word in foreign language is shown and you need to guess a translation) ![Forward card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_forward.png)
 - Reverse card template (when translation is shown and you need to type a word in foreign language) ![Reverse card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_reverse.png)
  
-# Danish-Russian dictionary
+# Danish-Russian offline dictionary
 This is a set of image files with a photo copies of hard copy dictionary. CopyWords tries to display an image which contains a selected word so that it is possible to check the translation.
 The window also has "Move forward" and "Move back" buttons for easier navigation.
+The "Danish-Russian offline dictionary" open by clicking on "DanRus" button and requires that the dictionary is present on a hard drive.
 
 ![Danish-Russian dictionary](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Danish_Russian_dictionary.png)
 
