@@ -211,7 +211,8 @@
                    IsEnabled="{Binding Sound, Converter={converters:StringNullOrEmptyToBoolConverter}}"
                    Command="{Binding Path=PlaySoundCommand}"
                    CommandParameter="{Binding Path=Sound}"
-                   Background="Transparent">
+                   Background="Transparent"
+                   ToolTip="Play sound">
                     <Image Source="/CopyWordsWPF;component/Resourses/speaker.gif" Width="13" Height="16" />
                 </Button>
 
@@ -219,7 +220,8 @@
                        IsEnabled="{Binding Sound, Converter={converters:StringNullOrEmptyToBoolConverter}}"
                        Command="{Binding Path=CopySoundFileCommand}"
                        Background="Transparent"
-                       x:Name="btnCopySoundFile">
+                       x:Name="btnCopySoundFile"
+                       ToolTip="Save sound file">
                     <Image Source="/CopyWordsWPF;component/Resourses/Save.png" Width="16" Height="16" />
                 </Button>
 
