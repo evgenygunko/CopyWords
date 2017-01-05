@@ -1,7 +1,7 @@
 # CopyWords
 This is a helper tool for adding new Danish words into [Anki](http://ankisrs.net/).
 
-I have customized Anki's card template to contain additional information about a word, such as transcription, sound file, etc. CopyWord tool makes it to fill a new card with information by automatically finding a word in online Danish dictionary and parsing different parts. Then you can click on various "Copy text" buttons to copy the text into clipboard and then paste it into Anki editor.
+I have customized Anki's card template to contain additional information about a word, such as transcription, sound file, etc. CopyWord tool makes it easier to fill a new card by automatically finding a word in online Danish dictionary and parsing different parts. Then you can click on various "Copy text" buttons to copy text into clipboard and paste it into Anki editor.
 
 First type a word or its part in the "Search" texbox and click FInd. If this word exists in the [Den Danske Ordbog](http://ordnet.dk/ddo/) online dictionary, it will be parsed and presented in the tool.
 Use "copy" buttons to copy relevant text into clipboard and paste it into the Anki card editor. 
@@ -9,8 +9,10 @@ Use "copy" buttons to copy relevant text into clipboard and paste it into the An
 ![Copy word parts into Anki](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Copy_word_parts.png)
 
 #### Card templates
-Card template can be created in Anki and unfortunately cannot be exported. It is saved in a "deck", which is a set of cards that a user likes to learn.
-New cards with new words can be added into the collection so that a user can learn and remember them.
+A card template can be created in Anki but unfortunately cannot be exported. It is saved with a "deck", which is a set of cards that a user wants to learn.
+A user adds new cards with new words into the collection and then will learn and remember them.
+
+My card templates:
 - Forward card template (when a word in foreign language is shown and you need to guess a translation) ![Forward card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_forward.png)
 - Reverse card template (when translation is shown and you need to type a word in foreign language) ![Reverse card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_reverse.png)
  
