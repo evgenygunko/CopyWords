@@ -11,9 +11,9 @@ Use "copy" buttons to copy relevant text into clipboard and paste it into the An
 #### Card templates
 Card template can be created in Anki and unfortunately cannot be exported. It is saved in a "deck", which is a set of cards that a user likes to learn.
 New cards with new words can be added into the collection so that a user can learn and remember them.
-- ![Forward card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_forward.png)
-- ![Reverse card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_reverse.png)
-- 
+- Forward card template (when a word in foreign language is shown and you need to guess a translation) ![Forward card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_forward.png)
+- Forward card template (when translation is shown and you need to type a word in foreign language) ![Reverse card](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Card_template_reverse.png)
+ 
 # Danish-Russian dictionary
 This is a set of image files with a photo copies of hard copy dictionary. CopyWords tries to display an image which contains a selected word so that it is possible to check the translation.
 The window also has "Move forward" and "Move back" buttons for easier navigation.
