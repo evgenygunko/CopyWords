@@ -6,8 +6,19 @@ I have customized Anki's card template to contain additional information about a
 First type a word or its part in the "Search" texbox and click FInd. If this word exists in the [Den Danske Ordbog](http://ordnet.dk/ddo/) online dictionary, it will be parsed and presented in the tool.
 Use "copy" buttons to copy relevant text into clipboard and paste it into the Anki card editor. 
 
+![Copy word parts into Anki](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Copy_word_parts.png)
+
+# Danish-Russian dictionary
+This is a set of image files with a photo copies of hard copy dictionary. CopyWords tries to display an image which contains a selected word so that it is possible to check the translation.
+The window also has "Move forward" and "Move back" buttons for easier navigation.
+
+![Danish-Russian dictionary](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Danish_Russian_dictionary.png)
+
 ## Sound
 "Play sound" button will download mp3 file (if it exists) and play it.
 "Save sound" button will normalize the sound file (change its volume) and save into Anki's media collection folder.
 
 ## Settings
+Settings dialog can be opened from the context menu.
+- "Path to Anki sounds folder" specifies a path to the Anki's media collection for current user (it contains media files which are displayed or played on the cards)
+- "Path to mp3gain" specifies a path to [mp3gain](http://mp3gain.sourceforge.net/) utility which is used for normalizing sound volume in mp3 files
