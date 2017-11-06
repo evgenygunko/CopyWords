@@ -34,17 +34,27 @@ namespace CopyWordsWPF.ViewModel.Commands
         {
             if ((WMPLib.WMPPlayState)newState == WMPLib.WMPPlayState.wmppsStopped)
             {
+                ReleaseResources();
+            }
+        }
+
+        private void player_MediaError(object mediaObject)
+        {
+            ReleaseResources();
+
+            throw new Exception(string.Format("Cannot play media file '{0}'.", _soundURL));
+        }
+
+        private void ReleaseResources()
+        {
+            if (_player != null)
+            {
                 _player.MediaError -= player_MediaError;
                 _player.PlayStateChange -= player_PlayStateChange;
                 _player.close();
 
                 _player = null;
             }
-        }
-
-        private void player_MediaError(object mediaObject)
-        {
-            throw new Exception(string.Format("Cannot play media file '{0}'.", _soundURL));
         }
     }
 }

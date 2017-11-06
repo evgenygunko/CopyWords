@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace CopyWords.Tests
 {
-    public class Helpers
+    public static class Helpers
     {
         public static MemoryStream GetSimpleHTMLPageStream(string fileName)
         {

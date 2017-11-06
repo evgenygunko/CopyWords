@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="New Rule Set" Description=" " ToolsVersion="14.0">
+<RuleSet Name="New Rule Set" Description=" " ToolsVersion="15.0">
   <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
     <Rule Id="CA1044" Action="Error" />
     <Rule Id="CA1049" Action="Error" />
@@ -12,6 +12,9 @@
     <Rule Id="CA1820" Action="Error" />
     <Rule Id="CA1823" Action="Error" />
     <Rule Id="CA2242" Action="Error" />
+  </Rules>
+  <Rules AnalyzerId="Roslynator.CSharp.Analyzers" RuleNamespace="Roslynator.CSharp.Analyzers">
+    <Rule Id="RCS1079" Action="None" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
     <Rule Id="SA1005" Action="None" />

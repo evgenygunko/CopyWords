@@ -281,7 +281,7 @@ namespace CopyWords.Tests
             var wordsMapApproxDict = command.WordsMapApproxDict;
 
             var wrongCodes = wordsMapApproxDict.Where(kvp => kvp.Value.Length != ExpectedCodeLength);
-            if (wrongCodes.Count() > 0)
+            if (wrongCodes.Any())
             {
                 string message = string.Format(
                 "Word codes in the must have length = {0}. The following {1} codes do not satisfy this rule:{2}{3}",

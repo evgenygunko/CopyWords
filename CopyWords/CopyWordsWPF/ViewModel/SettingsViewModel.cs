@@ -16,7 +16,7 @@ namespace CopyWordsWPF.ViewModel
         private string _mp3gainPath;
 
         private bool _isValidating = false;
-        private Dictionary<string, string> _errors = new Dictionary<string, string>();
+        private readonly Dictionary<string, string> _errors = new Dictionary<string, string>();
 
         public SettingsViewModel()
         {
@@ -76,7 +76,7 @@ namespace CopyWordsWPF.ViewModel
                 _isValidating = false;
             }
 
-            return _errors.Count() == 0;
+            return _errors.Count == 0;
         }
 
         #region IDataErrorInfo Members
