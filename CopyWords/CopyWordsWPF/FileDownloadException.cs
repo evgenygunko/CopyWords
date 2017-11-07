@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace CopyWordsWPF.Parsers
+namespace CopyWordsWPF
 {
     public class FileDownloadException : Exception
     {

@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Windows;
-using CopyWordsWPF.Parsers;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {

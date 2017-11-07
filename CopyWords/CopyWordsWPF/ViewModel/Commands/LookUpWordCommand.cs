@@ -1,15 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
-using CopyWordsWPF.Parsers;
+using CopyWords.Parsers;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
     public class LookUpWordCommand : CommandBase
     {
+        private readonly HttpClient _httpClient = new HttpClient();
+
         private MainViewModel _mainViewModel;
 
         public LookUpWordCommand(MainViewModel mainViewModel)
@@ -17,7 +22,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             _mainViewModel = mainViewModel;
         }
 
-        public override void Execute(object parameter)
+        public async override void Execute(object parameter)
         {
             string lookUp = _mainViewModel.LookUp;
             if (string.IsNullOrEmpty(lookUp))
@@ -54,14 +59,14 @@ namespace CopyWordsWPF.ViewModel.Commands
             slovardkUrl = GetSlovardkUri(wordToLookUp);
 
             // Download and parse a page from DDO
-            Stream ddoStream = DownloadPage(ddoUrl);
-            if (ddoStream == null)
+            string ddoPageHtml = await DownloadPageAsync(ddoUrl, Encoding.UTF8);
+            if (string.IsNullOrEmpty(ddoPageHtml))
             {
                 return;
             }
 
             DDOPageParser ddoPageParser = new DDOPageParser();
-            ddoPageParser.LoadStream(ddoStream);
+            ddoPageParser.LoadHtml(ddoPageHtml);
 
             WordViewModel wordViewModel = _mainViewModel.WordViewModel;
             wordViewModel.Word = ddoPageParser.ParseWord();
@@ -72,9 +77,10 @@ namespace CopyWordsWPF.ViewModel.Commands
             wordViewModel.Examples = ddoPageParser.ParseExamples();
 
             // Download and parse a page from Slovar.dk
-            Stream slovardkStream = DownloadPage(slovardkUrl);
+            string slovardkPageHtml = await DownloadPageAsync(slovardkUrl, Encoding.GetEncoding(1251));
+
             SlovardkPageParser slovardkPageParser = new SlovardkPageParser();
-            slovardkPageParser.LoadStream(slovardkStream);
+            slovardkPageParser.LoadHtml(slovardkPageHtml);
 
             var translations = slovardkPageParser.ParseWord();
             wordViewModel.RussianTranslations = translations;
@@ -113,36 +119,25 @@ namespace CopyWordsWPF.ViewModel.Commands
             }
         }
 
-        private static Stream DownloadPage(string url)
+        private async Task<string> DownloadPageAsync(string url, Encoding encoding)
         {
-            //Create a WebRequest to get the file
-            HttpWebRequest fileReq = (HttpWebRequest)HttpWebRequest.Create(url);
+            string content = null;
 
-            HttpWebResponse fileResp = null;
-
-            try
+            HttpResponseMessage response = await _httpClient.GetAsync(url);
+            if (response.IsSuccessStatusCode)
             {
-                //Create a response for this request
-                fileResp = (HttpWebResponse)fileReq.GetResponse();
+                byte[] bytes = await response.Content.ReadAsByteArrayAsync();
+                content = encoding.GetString(bytes, 0, bytes.Length - 1);
             }
-            catch (WebException ex)
+            else
             {
-                HttpWebResponse errorResponse = ex.Response as HttpWebResponse;
-                if (errorResponse.StatusCode == HttpStatusCode.NotFound)
+                if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
                 {
-                    MessageBox.Show("Den Danske Ordbog server returned NotFound exception.", "Cannot find word", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return null;
+                    throw new ServerErrorException("Server returned " + response.StatusCode);
                 }
             }
 
-            if (fileReq.ContentLength > 0)
-            {
-                fileResp.ContentLength = fileReq.ContentLength;
-            }
-
-            //Get the Stream returned from the response
-            Stream stream = fileResp.GetResponseStream();
-            return stream;
+            return content;
         }
     }
 }

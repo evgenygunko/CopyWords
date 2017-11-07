@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CopyWordsWPF</RootNamespace>
     <AssemblyName>CopyWordsWPF</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
@@ -19,6 +19,7 @@
     <SccProvider>SAK</SccProvider>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -49,6 +50,9 @@
     <ApplicationIcon>Resourses\copy.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CopyWords.Parsers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\CopyWords.Parsers.Evgeny.1.0.0\lib\netstandard2.0\CopyWords.Parsers.dll</HintPath>
+    </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.6.3.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.6.3\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
@@ -72,10 +76,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Parsers\FileDownloadException.cs" />
-    <Compile Include="Parsers\PageParserBase.cs" />
-    <Compile Include="Parsers\RussianTranslation.cs" />
-    <Compile Include="Parsers\SlovardkPageParser.cs" />
+    <Compile Include="FileDownloadException.cs" />
     <Compile Include="ViewModel\BindableBase.cs" />
     <Compile Include="ViewModel\Commands\ChangePageCommand.cs" />
     <Compile Include="ViewModel\Commands\CommandBase.cs" />
@@ -111,7 +112,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Parsers\DDOPageParser.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -138,7 +138,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parsers\PageParserException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

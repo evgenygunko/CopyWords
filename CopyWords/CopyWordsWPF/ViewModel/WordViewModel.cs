@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using CopyWordsWPF.Parsers;
+using CopyWords.Parsers.Models;
 using CopyWordsWPF.ViewModel.Commands;
 
 namespace CopyWordsWPF.ViewModel
