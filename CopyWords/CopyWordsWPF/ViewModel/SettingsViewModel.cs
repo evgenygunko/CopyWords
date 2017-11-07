@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
-using System.Linq;
 
 namespace CopyWordsWPF.ViewModel
 {
@@ -11,17 +10,20 @@ namespace CopyWordsWPF.ViewModel
         private const string AreFieldsNotEmptyProperty = "AreFieldsNotEmpty";
         private const string Mp3gainPathProperty = "Mp3gainPath";
         private const string AnkiSoundsFolderProperty = "AnkiSoundsFolder";
+        private const string UseMp3gainProperty = "UseMp3gain";
 
         private string _ankiSoundsFolder;
         private string _mp3gainPath;
 
         private bool _isValidating = false;
         private readonly Dictionary<string, string> _errors = new Dictionary<string, string>();
+        private bool _useMp3gain = true;
 
         public SettingsViewModel()
         {
             _ankiSoundsFolder = CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder;
             _mp3gainPath = CopyWordsWPF.Properties.Settings.Default.Mp3gainPath;
+            _useMp3gain = CopyWordsWPF.Properties.Settings.Default.UseMp3gain;
         }
 
         /// <summary>
@@ -54,11 +56,25 @@ namespace CopyWordsWPF.ViewModel
             }
         }
 
+        public bool UseMp3gain
+        {
+            get { return _useMp3gain; }
+            set
+            {
+                if (SetProperty<bool>(ref _useMp3gain, value))
+                {
+                    OnPropertyChanged(UseMp3gainProperty);
+                    OnPropertyChanged(AreFieldsNotEmptyProperty);
+                }
+            }
+        }
+
         public bool AreFieldsNotEmpty
         {
             get
             {
-                bool valueIsMissing = string.IsNullOrEmpty(_ankiSoundsFolder) || string.IsNullOrEmpty(_mp3gainPath);
+                bool valueIsMissing = string.IsNullOrEmpty(_ankiSoundsFolder) ||
+                    (_useMp3gain && string.IsNullOrEmpty(_mp3gainPath));
                 return !valueIsMissing;
             }
         }
@@ -109,9 +125,12 @@ namespace CopyWordsWPF.ViewModel
 
                 if (columnName == Mp3gainPathProperty)
                 {
-                    if (!(File.Exists(_mp3gainPath) && new FileInfo(_mp3gainPath).Name == "mp3gain.exe"))
+                    if (_useMp3gain)
                     {
-                        result = "'Path to mp3gain' must point to mp3gain.exe.";
+                        if (!(File.Exists(_mp3gainPath) && new FileInfo(_mp3gainPath).Name == "mp3gain.exe"))
+                        {
+                            result = "'Path to mp3gain' must point to mp3gain.exe.";
+                        }
                     }
                 }
 

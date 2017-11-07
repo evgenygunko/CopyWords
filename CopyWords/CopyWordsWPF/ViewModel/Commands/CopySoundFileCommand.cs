@@ -47,9 +47,12 @@ namespace CopyWordsWPF.ViewModel.Commands
             string fromFile = DownloadFile(soundFileUri, _wordViewModel.Word);
 
             // normalize mp3 file
-            if (!CallMp3gain(fromFile))
+            if (CopyWordsWPF.Properties.Settings.Default.UseMp3gain)
             {
-                return;
+                if (!CallMp3gain(fromFile))
+                {
+                    return;
+                }
             }
 
             string destinationFile = Path.Combine(CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder, _wordViewModel.Word + ".mp3");

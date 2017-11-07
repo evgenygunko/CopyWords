@@ -14,6 +14,7 @@ namespace CopyWordsWPF.ViewModel.Commands
 
                 CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder = vm.AnkiSoundsFolder;
                 CopyWordsWPF.Properties.Settings.Default.Mp3gainPath = vm.Mp3gainPath;
+                CopyWordsWPF.Properties.Settings.Default.UseMp3gain = vm.UseMp3gain;
             }
         }
     }

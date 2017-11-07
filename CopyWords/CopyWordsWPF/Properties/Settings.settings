@@ -17,11 +17,14 @@
     <Setting Name="AnkiSoundsFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Temp\1</Value>
     </Setting>
-    <Setting Name="Mp3gainPath" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Evgeny\Tools\mp3gain-win-1_3_4\mp3gain.exe</Value>
-    </Setting>
     <Setting Name="DRDictPath" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Evgeny\Dropbox\Danish\Большой датско-русский словарь\DATA</Value>
+    </Setting>
+    <Setting Name="Mp3gainPath" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Evgeny\Dropbox\Tools\mp3gain-win-1_3_4\mp3gain.exe</Value>
+    </Setting>
+    <Setting Name="UseMp3gain" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>
 </SettingsFile>
