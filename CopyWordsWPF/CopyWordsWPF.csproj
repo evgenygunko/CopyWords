@@ -49,15 +49,30 @@
   <PropertyGroup>
     <ApplicationIcon>Resourses\copy.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CopyWords.Parsers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CopyWords.Parsers.Evgeny.1.0.0\lib\netstandard2.0\CopyWords.Parsers.dll</HintPath>
+      <HintPath>..\packages\CopyWords.Parsers.Evgeny.1.0.4\lib\netstandard2.0\CopyWords.Parsers.dll</HintPath>
     </Reference>
-    <Reference Include="HtmlAgilityPack, Version=1.6.3.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
-      <HintPath>..\packages\HtmlAgilityPack.1.6.3\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="HtmlAgilityPack, Version=1.8.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.8.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.SimpleAudioPlayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.SimpleAudioPlayer.1.2.1.1-beta\lib\net45\Plugin.SimpleAudioPlayer.dll</HintPath>
+    </Reference>
+    <Reference Include="Plugin.SimpleAudioPlayer.Abstractions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xam.Plugin.SimpleAudioPlayer.1.2.1.1-beta\lib\net45\Plugin.SimpleAudioPlayer.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.4.5.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -176,17 +191,6 @@
     <Resource Include="Resourses\speaker.gif" />
   </ItemGroup>
   <ItemGroup>
-    <COMReference Include="WMPLib">
-      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
-      <VersionMajor>1</VersionMajor>
-      <VersionMinor>0</VersionMinor>
-      <Lcid>0</Lcid>
-      <WrapperTool>tlbimp</WrapperTool>
-      <Isolated>False</Isolated>
-      <EmbedInteropTypes>True</EmbedInteropTypes>
-    </COMReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resourses\settings.png" />
   </ItemGroup>
   <ItemGroup>
@@ -201,9 +205,12 @@
     <Resource Include="Resourses\Zoom-Out-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.5.0\analyzers\dotnet\cs\Roslynator.Common.dll" />
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.5.0\analyzers\dotnet\cs\Roslynator.Core.dll" />
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.5.0\analyzers\dotnet\cs\Roslynator.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.Common.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.Common.Workspaces.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.Workspaces.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
