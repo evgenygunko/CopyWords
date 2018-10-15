@@ -16,16 +16,6 @@ namespace CopyWordsWPF.ViewModel.Commands
             FillTheApproxMap();
         }
 
-        internal List<WordToPageMap> WordsMapAccurateList
-        {
-            get { return _wordsMapAccurateList; }
-        }
-
-        internal Dictionary<string, string> WordsMapApproxDict
-        {
-            get { return _wordsMapApproxDict; }
-        }
-
         public override void Execute(object parameter)
         {
             if (!Directory.Exists(CopyWordsWPF.Properties.Settings.Default.DRDictPath))
