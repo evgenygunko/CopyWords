@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -13,13 +11,16 @@ namespace CopyWordsWPF.ViewModel.Commands
 {
     public class LookUpWordCommand : CommandBase
     {
-        private readonly HttpClient _httpClient = new HttpClient();
+        private readonly HttpClient _httpClient;
 
         private MainViewModel _mainViewModel;
 
         public LookUpWordCommand(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
+
+            _httpClient = new HttpClient();
+            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
         }
 
         public async override void Execute(object parameter)
@@ -27,7 +28,8 @@ namespace CopyWordsWPF.ViewModel.Commands
             string lookUp = _mainViewModel.LookUp;
             if (string.IsNullOrEmpty(lookUp))
             {
-                throw new ArgumentException("LookUp text can't be null or empty.");
+                MessageBox.Show("LookUp text can't be null or empty.", "Incorrect input", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
             }
 
             string ddoUrl;
@@ -58,32 +60,42 @@ namespace CopyWordsWPF.ViewModel.Commands
 
             slovardkUrl = GetSlovardkUri(wordToLookUp);
 
-            // Download and parse a page from DDO
-            string ddoPageHtml = await DownloadPageAsync(ddoUrl, Encoding.UTF8);
-            if (string.IsNullOrEmpty(ddoPageHtml))
+            try
             {
-                return;
+                // Download and parse a page from DDO
+                string ddoPageHtml = await DownloadPageAsync(ddoUrl, Encoding.UTF8);
+                if (string.IsNullOrEmpty(ddoPageHtml))
+                {
+                    return;
+                }
+
+                DDOPageParser ddoPageParser = new DDOPageParser();
+                ddoPageParser.LoadHtml(ddoPageHtml);
+
+                WordViewModel wordViewModel = _mainViewModel.WordViewModel;
+                wordViewModel.Word = ddoPageParser.ParseWord();
+                wordViewModel.Endings = ddoPageParser.ParseEndings();
+                wordViewModel.Pronunciation = ddoPageParser.ParsePronunciation();
+                wordViewModel.Sound = ddoPageParser.ParseSound();
+                wordViewModel.Definitions = ddoPageParser.ParseDefinitions();
+                wordViewModel.Examples = ddoPageParser.ParseExamples();
+
+                // Download and parse a page from Slovar.dk
+                string slovardkPageHtml = await DownloadPageAsync(slovardkUrl, Encoding.GetEncoding(1251));
+
+                SlovardkPageParser slovardkPageParser = new SlovardkPageParser();
+                slovardkPageParser.LoadHtml(slovardkPageHtml);
+
+                var translations = slovardkPageParser.ParseWord();
+                wordViewModel.RussianTranslations = translations;
             }
+            catch (Exception ex)
+            {
+                var logger = NLog.LogManager.GetCurrentClassLogger();
+                logger.Error(ex, "Could not parse the result");
 
-            DDOPageParser ddoPageParser = new DDOPageParser();
-            ddoPageParser.LoadHtml(ddoPageHtml);
-
-            WordViewModel wordViewModel = _mainViewModel.WordViewModel;
-            wordViewModel.Word = ddoPageParser.ParseWord();
-            wordViewModel.Endings = ddoPageParser.ParseEndings();
-            wordViewModel.Pronunciation = ddoPageParser.ParsePronunciation();
-            wordViewModel.Sound = ddoPageParser.ParseSound();
-            wordViewModel.Definitions = ddoPageParser.ParseDefinitions();
-            wordViewModel.Examples = ddoPageParser.ParseExamples();
-
-            // Download and parse a page from Slovar.dk
-            string slovardkPageHtml = await DownloadPageAsync(slovardkUrl, Encoding.GetEncoding(1251));
-
-            SlovardkPageParser slovardkPageParser = new SlovardkPageParser();
-            slovardkPageParser.LoadHtml(slovardkPageHtml);
-
-            var translations = slovardkPageParser.ParseWord();
-            wordViewModel.RussianTranslations = translations;
+                MessageBox.Show("Could not parse the result. See the log file for details. Error: " + ex.Message, "Error while parsing result", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
 
         internal static bool CheckThatWordIsValid(string lookUp)

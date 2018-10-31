@@ -59,6 +59,9 @@
     <Reference Include="HtmlAgilityPack, Version=1.8.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.8.9\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.10\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Plugin.SimpleAudioPlayer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xam.Plugin.SimpleAudioPlayer.1.2.1.1-beta\lib\net45\Plugin.SimpleAudioPlayer.dll</HintPath>
     </Reference>
@@ -66,13 +69,18 @@
       <HintPath>..\packages\Xam.Plugin.SimpleAudioPlayer.1.2.1.1-beta\lib\net45\Plugin.SimpleAudioPlayer.Abstractions.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Text.Encoding.CodePages.4.5.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -170,6 +178,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -205,12 +216,12 @@
     <Resource Include="Resourses\Zoom-Out-icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.Common.dll" />
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.Common.Workspaces.dll" />
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.dll" />
-    <Analyzer Include="..\packages\Roslynator.Analyzers.1.9.0\analyzers\dotnet\cs\Roslynator.CSharp.Workspaces.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.2.0.0\analyzers\dotnet\cs\Roslynator.Common.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.2.0.0\analyzers\dotnet\cs\Roslynator.Common.Workspaces.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.2.0.0\analyzers\dotnet\cs\Roslynator.CSharp.Analyzers.CodeFixes.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.2.0.0\analyzers\dotnet\cs\Roslynator.CSharp.Analyzers.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.2.0.0\analyzers\dotnet\cs\Roslynator.CSharp.dll" />
+    <Analyzer Include="..\packages\Roslynator.Analyzers.2.0.0\analyzers\dotnet\cs\Roslynator.CSharp.Workspaces.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
