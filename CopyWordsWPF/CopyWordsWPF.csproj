@@ -54,7 +54,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CopyWords.Parsers, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\CopyWords.Parsers.Evgeny.1.0.4\lib\netstandard2.0\CopyWords.Parsers.dll</HintPath>
+      <HintPath>..\packages\CopyWords.Parsers.Evgeny.1.0.5\lib\netstandard2.0\CopyWords.Parsers.dll</HintPath>
     </Reference>
     <Reference Include="HtmlAgilityPack, Version=1.8.9.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.8.9\lib\Net45\HtmlAgilityPack.dll</HintPath>

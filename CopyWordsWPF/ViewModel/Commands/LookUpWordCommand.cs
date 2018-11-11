@@ -1,26 +1,18 @@
 ﻿using System;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Web;
 using System.Windows;
 using CopyWords.Parsers;
+using CopyWords.Parsers.Models;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
     public class LookUpWordCommand : CommandBase
     {
-        private readonly HttpClient _httpClient;
-
         private MainViewModel _mainViewModel;
 
         public LookUpWordCommand(MainViewModel mainViewModel)
         {
             _mainViewModel = mainViewModel;
-
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.UserAgent.ParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36");
         }
 
         public async override void Execute(object parameter)
@@ -32,124 +24,64 @@ namespace CopyWordsWPF.ViewModel.Commands
                 return;
             }
 
-            string ddoUrl;
-            string slovardkUrl;
-            string wordToLookUp = lookUp;
+            WordModel wordModel = await LookUpWordAsync(lookUp);
 
-            if (Uri.IsWellFormedUriString(lookUp, UriKind.Absolute))
+            if (wordModel != null)
             {
-                if (!lookUp.StartsWith("http://ordnet.dk/ddo/ordbog"))
+                try
                 {
-                    MessageBox.Show("Incorrect url to lookup a word.", "Incorrect url", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
+                    WordViewModel wordViewModel = _mainViewModel.WordViewModel;
+                    wordViewModel.Word = wordModel.Word;
+                    wordViewModel.Endings = wordModel.Endings;
+                    wordViewModel.Pronunciation = wordModel.Pronunciation;
+                    wordViewModel.Sound = wordModel.Sound;
+                    wordViewModel.Definitions = wordModel.Definitions;
+                    wordViewModel.Examples = wordModel.Examples;
+                    wordViewModel.RussianTranslations = wordModel.Translations;
                 }
+                catch (Exception ex)
+                {
+                    var logger = NLog.LogManager.GetCurrentClassLogger();
+                    logger.Error(ex, "Could not parse the result");
 
-                ddoUrl = lookUp;
-                wordToLookUp = GetWordToLookupFromUrl(lookUp);
+                    MessageBox.Show("Could not parse the result. See the log file for details. Error: " + ex.Message, "Error while parsing result", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
             }
-            else
+        }
+
+        private async Task<WordModel> LookUpWordAsync(string word)
+        {
+            if (string.IsNullOrEmpty(word))
             {
-                if (!CheckThatWordIsValid(lookUp))
-                {
-                    MessageBox.Show("Search can only contain alphanumeric characters and spaces.", "Invalid search term", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return;
-                }
-
-                ddoUrl = string.Format("http://ordnet.dk/ddo/ordbog?query={0}&search=S%C3%B8g", lookUp);
+                return null;
             }
 
-            slovardkUrl = GetSlovardkUri(wordToLookUp);
+            LookUpWord command = new LookUpWord();
 
+            (bool isValid, string errorMessage) = command.CheckThatWordIsValid(word);
+            if (!isValid)
+            {
+                MessageBox.Show(errorMessage, "Invalid search term", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return null;
+            }
+
+            WordModel wordModel = null;
             try
             {
-                // Download and parse a page from DDO
-                string ddoPageHtml = await DownloadPageAsync(ddoUrl, Encoding.UTF8);
-                if (string.IsNullOrEmpty(ddoPageHtml))
+                wordModel = await command.LookUpWordAsync(word);
+
+                if (wordModel == null)
                 {
-                    return;
+                    MessageBox.Show($"Den Danske Ordbog doesn't have a page for '{word}'", "Cannot find word", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-
-                DDOPageParser ddoPageParser = new DDOPageParser();
-                ddoPageParser.LoadHtml(ddoPageHtml);
-
-                WordViewModel wordViewModel = _mainViewModel.WordViewModel;
-                wordViewModel.Word = ddoPageParser.ParseWord();
-                wordViewModel.Endings = ddoPageParser.ParseEndings();
-                wordViewModel.Pronunciation = ddoPageParser.ParsePronunciation();
-                wordViewModel.Sound = ddoPageParser.ParseSound();
-                wordViewModel.Definitions = ddoPageParser.ParseDefinitions();
-                wordViewModel.Examples = ddoPageParser.ParseExamples();
-
-                // Download and parse a page from Slovar.dk
-                string slovardkPageHtml = await DownloadPageAsync(slovardkUrl, Encoding.GetEncoding(1251));
-
-                SlovardkPageParser slovardkPageParser = new SlovardkPageParser();
-                slovardkPageParser.LoadHtml(slovardkPageHtml);
-
-                var translations = slovardkPageParser.ParseWord();
-                wordViewModel.RussianTranslations = translations;
             }
             catch (Exception ex)
             {
-                var logger = NLog.LogManager.GetCurrentClassLogger();
-                logger.Error(ex, "Could not parse the result");
-
-                MessageBox.Show("Could not parse the result. See the log file for details. Error: " + ex.Message, "Error while parsing result", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
-        }
-
-        internal static bool CheckThatWordIsValid(string lookUp)
-        {
-            Regex regex = new Regex(@"^[\w ]+$");
-            return regex.IsMatch(lookUp);
-        }
-
-        internal static string GetSlovardkUri(string wordToLookUp)
-        {
-            wordToLookUp = wordToLookUp.ToLower()
-                .Replace("å", "'aa")
-                .Replace("æ", "'ae")
-                .Replace("ø", "'oe")
-                .Replace(" ", "-");
-
-            string uri = string.Format("http://www.slovar.dk/tdansk/{0}/?", wordToLookUp);
-            return uri;
-        }
-
-        internal static string GetWordToLookupFromUrl(string lookUpUri)
-        {
-            Uri myUri = new Uri(lookUpUri);
-            string param1 = HttpUtility.ParseQueryString(myUri.Query).Get("query");
-
-            if (!string.IsNullOrEmpty(param1))
-            {
-                return param1.ToLower();
-            }
-            else
-            {
-                return string.Empty;
-            }
-        }
-
-        private async Task<string> DownloadPageAsync(string url, Encoding encoding)
-        {
-            string content = null;
-
-            HttpResponseMessage response = await _httpClient.GetAsync(url);
-            if (response.IsSuccessStatusCode)
-            {
-                byte[] bytes = await response.Content.ReadAsByteArrayAsync();
-                content = encoding.GetString(bytes, 0, bytes.Length - 1);
-            }
-            else
-            {
-                if (response.StatusCode != System.Net.HttpStatusCode.NotFound)
-                {
-                    throw new ServerErrorException("Server returned " + response.StatusCode);
-                }
+                MessageBox.Show(ex.Message, "Error occurred while searching word", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return null;
             }
 
-            return content;
+            return wordModel;
         }
     }
 }
