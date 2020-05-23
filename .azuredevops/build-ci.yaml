@@ -1,0 +1,87 @@
+trigger:
+  branches:
+    include:
+    - master
+    - ci/*
+    - bug/*
+    - feature/*
+
+stages:
+- stage: Build
+  jobs:
+  - job: Build
+    pool:
+      vmImage: 'windows-latest'
+
+    steps:
+    - task: PowerShell@2
+      displayName: 'PowerShell Script - download latest Parsers nuget package'
+      inputs:
+        targetType: filePath
+        filePath: './Build/download-latest-release.ps1'
+
+    - task: NuGetToolInstaller@0
+      displayName: 'Use NuGet 4.3.0'
+      inputs:
+        versionSpec: 4.3.0
+
+    - task: NuGetCommand@2
+      displayName: 'NuGet restore'
+      inputs:
+        restoreSolution: '**/*.sln'
+        feedsToUse: config
+        nugetConfigPath: './.nuget/NuGet.Config'
+
+    - task: MSBuild@1
+      displayName: 'Build solution **/*.sln'
+      inputs:
+        platform: '$(BuildPlatform)'
+        configuration: '$(BuildConfiguration)'
+
+    - task: VSTest@2
+      displayName: 'VsTest - testAssemblies'
+      inputs:
+        testAssemblyVer2: |
+          **\$(BuildConfiguration)\*test*.dll
+          !**\obj\**
+          platform: '$(BuildPlatform)'
+          configuration: '$(BuildConfiguration)'
+          diagnosticsEnabled: True
+      enabled: false
+
+    - task: CopyFiles@2
+      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+      inputs:
+        SourceFolder: '$(build.sourcesdirectory)'
+        Contents: '**\bin\$(BuildConfiguration)\**'
+        TargetFolder: '$(build.artifactstagingdirectory)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+
+- stage: Sync_With_Github
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
+  jobs:
+  - job: Sync_With_Github
+
+    steps:
+    - script: |
+        echo Configure git
+
+        git config --global user.email "evgeny.gunko@gmail.com"
+        git config --global user.name "Evgeny Gunko"
+
+    - task: CmdLine@1
+      displayName: 'Run git: pull from GitHub'
+      inputs:
+        filename: git
+        arguments: 'pull https://github.com/evgenygunko/CopyWords.git master --allow-unrelated-histories'
+
+    - task: CmdLine@1
+      displayName: 'Run git: push to GitHub'
+      inputs:
+        filename: git
+        arguments: 'push https://$(githubpersonaltoken)@github.com/evgenygunko/CopyWords.git head:master'
