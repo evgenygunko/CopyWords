@@ -1,0 +1,38 @@
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+- task: PowerShell@2
+  displayName: 'PowerShell Script - download latest Parsers nuget package'
+  inputs:
+    targetType: filePath
+    filePath: './Build/download-latest-release.ps1'
+
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 4.3.0'
+  inputs:
+    versionSpec: 4.3.0
+
+- task: NuGetCommand@2
+  displayName: 'NuGet restore'
+  inputs:
+    restoreSolution: '**/*.sln'
+    feedsToUse: config
+    nugetConfigPath: './.nuget/NuGet.Config'
+
+- task: MSBuild@1
+  displayName: 'Build solution **/*.sln'
+  inputs:
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+
+- task: VSTest@2
+  displayName: 'VsTest - testAssemblies'
+  inputs:
+    testAssemblyVer2: |
+     **\$(BuildConfiguration)\*test*.dll
+     !**\obj\**
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+    diagnosticsEnabled: True
+  enabled: false

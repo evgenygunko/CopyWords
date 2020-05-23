@@ -10,7 +10,7 @@ $file = "CopyWords.Parsers.Evgeny.$tag.nupkg"
 $downloadUrl = "https://github.com/$repo/releases/download/$tag/$file"
 Write-Host "downloadUrl = $downloadUrl"
 
-$targetFolder = "$env:BUILD_SOURCESDIRECTORY/.nuget/local_nuget"
+$targetFolder = "$($env:AGENT_BUILDDIRECTORY)/Nuget/local_nuget"
 #$targetFolder = "/Temp/packages"
 $targetFile = "$targetFolder/$file"
 Write-Host "targetFile = $targetFile"
