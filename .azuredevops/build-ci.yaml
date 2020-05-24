@@ -66,22 +66,19 @@ stages:
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/master'))
   jobs:
   - job: Sync_With_Github
+    #pool:
+    #  name: Win10-private
 
     steps:
     - script: |
-        echo Configure git
+        echo Push changes to Github
 
         git config --global user.email "evgeny.gunko@gmail.com"
         git config --global user.name "Evgeny Gunko"
 
-    - task: CmdLine@1
-      displayName: 'Run git: pull from GitHub'
-      inputs:
-        filename: git
-        arguments: 'pull https://github.com/evgenygunko/CopyWords.git master --allow-unrelated-histories'
+        echo Pulling changes from Github...
+        git pull https://github.com/evgenygunko/CopyWords.git master --allow-unrelated-histories
 
-    - task: CmdLine@1
-      displayName: 'Run git: push to GitHub'
-      inputs:
-        filename: git
-        arguments: 'push https://$(githubpersonaltoken)@github.com/evgenygunko/CopyWords.git head:master'
+        echo Pushing changes to Github...
+        git remote add github https://$(githubpersonaltoken)@github.com/evgenygunko/CopyWords.git
+        git push -u github HEAD:master
