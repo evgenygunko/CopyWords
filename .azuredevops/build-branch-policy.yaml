@@ -4,11 +4,7 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: PowerShell@2
-  displayName: 'PowerShell Script - download latest Parsers nuget package'
-  inputs:
-    targetType: filePath
-    filePath: './Build/download-latest-release.ps1'
+- template: /.azuredevops/templates/steps-download-copywords-parsers.yaml
 
 - task: NuGetToolInstaller@0
   displayName: 'Use NuGet 4.3.0'
