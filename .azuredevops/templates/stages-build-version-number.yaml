@@ -1,9 +1,10 @@
 stages:
-- stage:
-  displayName: Build_Branch_Version_Number
-  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+- stage: Build_Version_Number
+
   jobs:
   - job: Build_Branch_Version_Number
+    condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
     variables:
        prpatch: $[counter(variables['system.pullrequest.pullrequestid'], 0)]
        brpatch: $[counter(variables['build.sourcebranchname'], 0)]
@@ -16,3 +17,13 @@ stages:
            echo "##vso[build.updatebuildnumber]$(major).$(minor)-$(Build.SourceBranchName).$(brpatch)"
         condition: and(ne(variables['Build.SourceBranch'], 'refs/heads/master'), ne(variables['Build.Reason'], 'PullRequest'))
         name: SetBranchBuildName
+
+  - job: Build_Master_Version_Number
+    condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+
+    variables:
+       patch: $[counter(variables['minor'], 0)]
+    steps:
+      - bash: |
+           echo "##vso[build.updatebuildnumber]$(major).$(minor).$(patch)"
+        name: SetMasterBuildName
