@@ -1,7 +1,0 @@
-steps:
-    - task: PowerShell@2
-      displayName: 'PowerShell Script - download latest Parsers nuget package'
-      inputs:
-        targetType: filePath
-        arguments: "-githubpersonaltoken $(githubpersonaltoken)"
-        filePath: './Build/download-latest-release.ps1'

@@ -31,6 +31,3 @@ The "Danish-Russian offline dictionary" open by clicking on "DanRus" button and 
 Settings dialog can be opened from the context menu.
 - "Path to Anki sounds folder" specifies a path to the Anki's media collection for current user (it contains media files which are displayed or played on the cards)
 - "Path to mp3gain" specifies a path to [mp3gain](http://mp3gain.sourceforge.net/) utility which is used for normalizing sound volume in mp3 files
-
-## How to build solution
-The solution has referenced a nuget package https://github.com/evgenygunko/CopyWords.Parsers which is not added to any public nuget feed. You need to save the nuget package to local drive and configure VS or nuget.config to use this folder as a local nuget feed.
