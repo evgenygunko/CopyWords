@@ -81,10 +81,11 @@ namespace CopyWordsWPF.ViewModel.Commands
             if (!File.Exists(destFileFullPath))
             {
                 // Create a new WebClient instance.
-                WebClient myWebClient = new WebClient();
-
-                // Download the Web resource and save it into the current filesystem folder.
-                myWebClient.DownloadFile(soundFileUri.AbsoluteUri, destFileFullPath);
+                using (WebClient myWebClient = new WebClient())
+                {
+                    // Download the Web resource and save it into the current filesystem folder.
+                    myWebClient.DownloadFile(soundFileUri.AbsoluteUri, destFileFullPath);
+                }
             }
 
             if (!File.Exists(destFileFullPath))
@@ -112,7 +113,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             return true;
         }
 
-        private bool CallMp3gain(string fromFile)
+        private static bool CallMp3gain(string fromFile)
         {
             if (!File.Exists(CopyWordsWPF.Properties.Settings.Default.Mp3gainPath))
             {

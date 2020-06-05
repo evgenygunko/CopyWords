@@ -18,7 +18,8 @@ namespace CopyWordsWPF
         {
         }
 
-        protected FileDownloadException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context)
+        protected FileDownloadException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
+            : base(info, context)
         {
         }
     }

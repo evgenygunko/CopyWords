@@ -49,7 +49,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             }
         }
 
-        private async Task<WordModel> LookUpWordAsync(string word)
+        private static async Task<WordModel> LookUpWordAsync(string word)
         {
             if (string.IsNullOrEmpty(word))
             {

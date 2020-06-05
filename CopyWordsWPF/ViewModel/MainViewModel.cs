@@ -33,10 +33,7 @@ namespace CopyWordsWPF.ViewModel
         public string LookUp
         {
             get { return _lookUp; }
-            set
-            {
-                SetProperty<string>(ref _lookUp, value);
-            }
+            set { SetProperty<string>(ref _lookUp, value); }
         }
 
         public WordViewModel WordViewModel

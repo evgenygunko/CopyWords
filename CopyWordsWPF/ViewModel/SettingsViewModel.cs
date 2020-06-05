@@ -12,11 +12,12 @@ namespace CopyWordsWPF.ViewModel
         private const string AnkiSoundsFolderProperty = "AnkiSoundsFolder";
         private const string UseMp3gainProperty = "UseMp3gain";
 
+        private readonly Dictionary<string, string> _errors = new Dictionary<string, string>();
+
         private string _ankiSoundsFolder;
         private string _mp3gainPath;
 
         private bool _isValidating = false;
-        private readonly Dictionary<string, string> _errors = new Dictionary<string, string>();
         private bool _useMp3gain = true;
 
         public SettingsViewModel()
@@ -31,7 +32,11 @@ namespace CopyWordsWPF.ViewModel
         /// </summary>
         public string AnkiSoundsFolder
         {
-            get { return _ankiSoundsFolder; }
+            get
+            {
+                return _ankiSoundsFolder;
+            }
+
             set
             {
                 if (SetProperty<string>(ref _ankiSoundsFolder, value))
@@ -46,7 +51,11 @@ namespace CopyWordsWPF.ViewModel
         /// </summary>
         public string Mp3gainPath
         {
-            get { return _mp3gainPath; }
+            get
+            {
+                return _mp3gainPath;
+            }
+
             set
             {
                 if (SetProperty<string>(ref _mp3gainPath, value))
@@ -58,7 +67,11 @@ namespace CopyWordsWPF.ViewModel
 
         public bool UseMp3gain
         {
-            get { return _useMp3gain; }
+            get
+            {
+                return _useMp3gain;
+            }
+
             set
             {
                 if (SetProperty<bool>(ref _useMp3gain, value))

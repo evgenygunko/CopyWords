@@ -22,10 +22,10 @@ namespace CopyWordsWPF.View
         private void WordView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             _wordViewModel = e.NewValue as WordViewModel;
-            _wordViewModel.FileCopied += _wordViewModel_FileCopied;
+            _wordViewModel.FileCopied += WordViewModel_FileCopied;
         }
 
-        private void _wordViewModel_FileCopied(object sender, EventArgs e)
+        private void WordViewModel_FileCopied(object sender, EventArgs e)
         {
             BeginStoryboard sb = Resources["FileCopiedStoryBoard"] as BeginStoryboard;
             sb.Storyboard.Begin();

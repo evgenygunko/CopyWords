@@ -1,37 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<RuleSet Name="New Rule Set" Description=" " ToolsVersion="15.0">
-  <Rules AnalyzerId="Microsoft.Analyzers.ManagedCodeAnalysis" RuleNamespace="Microsoft.Rules.Managed">
-    <Rule Id="CA1044" Action="Error" />
-    <Rule Id="CA1049" Action="Error" />
-    <Rule Id="CA1064" Action="Error" />
-    <Rule Id="CA1505" Action="Error" />
-    <Rule Id="CA1800" Action="Error" />
-    <Rule Id="CA1801" Action="Error" />
-    <Rule Id="CA1804" Action="Error" />
-    <Rule Id="CA1811" Action="Error" />
-    <Rule Id="CA1820" Action="Error" />
-    <Rule Id="CA1823" Action="Error" />
-    <Rule Id="CA2242" Action="Error" />
+<RuleSet Name="New Rule Set" ToolsVersion="16.0">
+  <Rules AnalyzerId="Microsoft.CodeQuality.Analyzers" RuleNamespace="Microsoft.CodeQuality.Analyzers">
+    <Rule Id="CA1031" Action="None" />
+    <Rule Id="CA1056" Action="Info" />
+    <Rule Id="CA1724" Action="None" />
+    <Rule Id="CA2007" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.Analyzers" RuleNamespace="Microsoft.NetCore.Analyzers">
+    <Rule Id="CA1303" Action="None" />
+    <Rule Id="CA2237" Action="None" />
+  </Rules>
+  <Rules AnalyzerId="Microsoft.NetCore.CSharp.Analyzers" RuleNamespace="Microsoft.NetCore.CSharp.Analyzers">
+    <Rule Id="CA1824" Action="None" />
   </Rules>
   <Rules AnalyzerId="Roslynator.CSharp.Analyzers" RuleNamespace="Roslynator.CSharp.Analyzers">
-    <Rule Id="RCS1036" Action="Warning" />
-    <Rule Id="RCS1079" Action="None" />
+    <Rule Id="RCS1046" Action="Error" />
   </Rules>
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA0001" Action="None" />
     <Rule Id="SA1005" Action="None" />
+    <Rule Id="SA1008" Action="None" />
     <Rule Id="SA1101" Action="None" />
     <Rule Id="SA1124" Action="None" />
     <Rule Id="SA1200" Action="None" />
     <Rule Id="SA1201" Action="None" />
-    <Rule Id="SA1300" Action="None" />
     <Rule Id="SA1309" Action="None" />
-    <Rule Id="SA1504" Action="None" />
-    <Rule Id="SA1512" Action="None" />
-    <Rule Id="SA1516" Action="None" />
+    <Rule Id="SA1413" Action="None" />
+    <Rule Id="SA1600" Action="None" />
+    <Rule Id="SA1601" Action="None" />
     <Rule Id="SA1615" Action="None" />
     <Rule Id="SA1633" Action="None" />
+    <Rule Id="SA1649" Action="None" />
     <Rule Id="SA1652" Action="None" />
-    <Rule Id="SX1101" Action="Warning" />
-    <Rule Id="SX1309" Action="Warning" />
   </Rules>
 </RuleSet>

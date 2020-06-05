@@ -8,11 +8,6 @@ namespace CopyWordsWPF.ViewModel
 {
     public class ScannedImageViewModel : BindableBase
     {
-        private const string IsPreviousPageAvaliableeProperty = "IsPreviousPageAvaliable";
-        private const string IsNextPageAvaliableProperty = "IsNextPageAvaliable";
-        private const string CurrentPageImageProperty = "CurrentPageImage";
-        private const string TitleProperty = "Title";
-
         private bool _isPreviousPageAvailable;
         private bool _isNextPageAvaliable;
         private string _currentPage;
@@ -43,44 +38,32 @@ namespace CopyWordsWPF.ViewModel
         public bool IsPreviousPageAvaliable
         {
             get { return _isPreviousPageAvailable; }
-            set
-            {
-                SetProperty<bool>(ref _isPreviousPageAvailable, value);
-            }
+            set { SetProperty<bool>(ref _isPreviousPageAvailable, value); }
         }
 
         public bool IsNextPageAvaliable
         {
             get { return _isNextPageAvaliable; }
-            set
-            {
-                SetProperty<bool>(ref _isNextPageAvaliable, value);
-            }
+            set { SetProperty<bool>(ref _isNextPageAvaliable, value); }
         }
 
         public BitmapImage CurrentPageImage
         {
             get { return _currentPageImage; }
-            set
-            {
-                SetProperty<BitmapImage>(ref _currentPageImage, value);
-            }
+            set { SetProperty<BitmapImage>(ref _currentPageImage, value); }
         }
 
         public string Title
         {
             get { return _title; }
-            set
-            {
-                SetProperty<string>(ref _title, value);
-            }
+            set { SetProperty<string>(ref _title, value); }
         }
 
         #endregion
 
         #region Public Methods
 
-        private string GetImageFilePath(string imageName)
+        private static string GetImageFilePath(string imageName)
         {
             string filePath = Path.Combine(CopyWordsWPF.Properties.Settings.Default.DRDictPath, imageName);
             return filePath;

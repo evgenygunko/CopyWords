@@ -62,46 +62,31 @@ namespace CopyWordsWPF.ViewModel
         public string Word
         {
             get { return _word; }
-            set
-            {
-                SetProperty<string>(ref _word, value);
-            }
+            set { SetProperty<string>(ref _word, value); }
         }
 
         public string Endings
         {
             get { return _endings; }
-            set
-            {
-                SetProperty<string>(ref _endings, value);
-            }
+            set { SetProperty<string>(ref _endings, value); }
         }
 
         public string Pronunciation
         {
             get { return _pronunciation; }
-            set
-            {
-                SetProperty<string>(ref _pronunciation, value);
-            }
+            set { SetProperty<string>(ref _pronunciation, value); }
         }
 
         public string Sound
         {
             get { return _sound; }
-            set
-            {
-                SetProperty<string>(ref _sound, value);
-            }
+            set { SetProperty<string>(ref _sound, value); }
         }
 
         public string Definitions
         {
             get { return _definitions; }
-            set
-            {
-                SetProperty<string>(ref _definitions, value);
-            }
+            set { SetProperty<string>(ref _definitions, value); }
         }
 
         public string ExamplesString
@@ -124,7 +109,11 @@ namespace CopyWordsWPF.ViewModel
 
         public List<string> Examples
         {
-            get { return _examples; }
+            get
+            {
+                return _examples;
+            }
+
             set
             {
                 if (SetProperty<List<string>>(ref _examples, value))
@@ -137,10 +126,7 @@ namespace CopyWordsWPF.ViewModel
         public List<RussianTranslation> RussianTranslations
         {
             get { return _russianTranslations; }
-            set
-            {
-                SetProperty<List<RussianTranslation>>(ref _russianTranslations, value);
-            }
+            set { SetProperty<List<RussianTranslation>>(ref _russianTranslations, value); }
         }
 
         public void OnFileCopied()
