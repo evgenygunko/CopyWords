@@ -3,7 +3,7 @@ This is a helper tool for adding new Danish words into [Anki](http://ankisrs.net
 
 I have customized Anki's card template to contain additional information about a word, such as transcription, sound file, etc. CopyWord tool makes it easier to fill a new card by automatically finding a word in online Danish dictionary and parsing different parts. Then you can click on various "Copy text" buttons to copy text into clipboard and paste it into Anki editor.
 
-First type a word or its part in the "Search" texbox and click FInd. If this word exists in the [Den Danske Ordbog](http://ordnet.dk/ddo/) online dictionary, it will be parsed and presented in the tool.
+First type a word or its part in the "Search" textbox and click FInd. If this word exists in the [Den Danske Ordbog](http://ordnet.dk/ddo/) online dictionary, it will be parsed and presented in the tool.
 Use "copy" buttons to copy relevant text into clipboard and paste it into the Anki card editor.
 
 ![Copy word parts into Anki](https://raw.githubusercontent.com/evgenygunko/CopyWords/master/img/Copy_word_parts.png)
