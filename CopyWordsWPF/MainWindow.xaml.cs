@@ -12,6 +12,7 @@ namespace CopyWordsWPF
         {
             InitializeComponent();
 
+            System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             DataContext = new MainViewModel();
         }
 
