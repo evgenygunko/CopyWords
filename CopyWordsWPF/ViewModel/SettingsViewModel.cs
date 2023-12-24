@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace CopyWordsWPF.ViewModel
 {
@@ -91,6 +92,8 @@ namespace CopyWordsWPF.ViewModel
                 return !valueIsMissing;
             }
         }
+
+        public string About => $".net version: {RuntimeInformation.FrameworkDescription}";
 
         public bool Validate()
         {

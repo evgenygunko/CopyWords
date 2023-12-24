@@ -1,70 +1,53 @@
 trigger:
-  branches:
-    include:
-    - master
-    - ci/*
-    - bug/*
-    - feature/*
+    branches:
+        include:
+            - master
+            - ci/*
+            - bug/*
+            - feature/*
 
 stages:
-- stage: Build
+    - stage: Build
 
-  jobs:
-  - job: Build
-    pool:
-      vmImage: 'windows-latest'
+      jobs:
+          - job: Build
+            pool:
+                vmImage: "windows-latest"
 
-    steps:
-    - bash: |
-        echo "##vso[build.updatebuildnumber]$(major).$(minor).$(Build.BuildId)"
-      name: SetBuildName
+            steps:
+                - bash: |
+                      echo "##vso[build.updatebuildnumber]$(major).$(minor).$(Build.BuildId)"
+                  name: SetBuildName
 
-    - task: PowerShell@2
-      displayName: 'PowerShell Script - update version number in project files'
-      inputs:
-        targetType: filePath
-        arguments: "-version '$(Build.BuildNumber)'"
-        filePath: './.build/UpdateVersion.ps1'
+                - task: PowerShell@2
+                  displayName: "PowerShell Script - update version number in project files"
+                  inputs:
+                      targetType: filePath
+                      arguments: "-version '$(Build.BuildNumber)'"
+                      filePath: "./.build/UpdateVersion.ps1"
 
-    - task: NuGetToolInstaller@0
-      displayName: 'Use NuGet 4.3.0'
-      inputs:
-        versionSpec: 4.3.0
+                # Publish projects to specified folder.
+                - task: DotNetCoreCLI@2
+                  displayName: 'dotnet publish'
+                  inputs:
+                    command: 'publish'
+                    projects: '**/CopyWords.WPF.csproj'
+                    arguments: '-o $(Build.ArtifactStagingDirectory)'
+                    publishWebProjects: false
+                    zipAfterPublish: true
+                    modifyOutputPath: true
 
-    - task: NuGetCommand@2
-      displayName: 'NuGet restore'
-      inputs:
-        restoreSolution: '**/*.sln'
+                # - task: DotNetCoreCLI@2
+                #   displayName: "Run unit tests"
+                #   inputs:
+                #     command: "test"
+                #     configuration: "$(BuildConfiguration)"
 
-    - task: MSBuild@1
-      displayName: 'Build solution **/*.sln'
-      inputs:
-        platform: '$(BuildPlatform)'
-        configuration: '$(BuildConfiguration)'
+                - task: PublishBuildArtifacts@1
+                  displayName: "Publish Artifact: drop"
+                  inputs:
+                      PathtoPublish: "$(build.artifactstagingdirectory)"
 
-    - task: VSTest@2
-      displayName: 'VsTest - testAssemblies'
-      inputs:
-        testAssemblyVer2: |
-          **\$(BuildConfiguration)\*test*.dll
-          !**\obj\**
-          platform: '$(BuildPlatform)'
-          configuration: '$(BuildConfiguration)'
-          diagnosticsEnabled: True
-      enabled: false
-
-    - task: CopyFiles@2
-      displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-      inputs:
-        SourceFolder: '$(build.sourcesdirectory)'
-        Contents: '**\bin\$(BuildConfiguration)\**'
-        TargetFolder: '$(build.artifactstagingdirectory)'
-
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
-      inputs:
-        PathtoPublish: '$(build.artifactstagingdirectory)'
-
-- template: /.azuredevops/templates/stages-sync-with-github.yaml
-  parameters:
-    repository: CopyWords
+    - template: /.azuredevops/templates/stages-sync-with-github.yaml
+      parameters:
+          repository: CopyWords

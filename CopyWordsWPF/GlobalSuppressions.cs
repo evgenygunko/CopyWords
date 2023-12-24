@@ -24,3 +24,5 @@ using System.Diagnostics.CodeAnalysis;
 [assembly: SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "<Reviewed>", Scope = "member", Target = "~M:CopyWordsWPF.ViewModel.Commands.LookupInDRDictCommand.GetFileName(System.String)~System.String")]
 [assembly: SuppressMessage("Globalization", "CA1307:Specify StringComparison", Justification = "<Reviewed>", Scope = "member", Target = "~M:CopyWordsWPF.ViewModel.Commands.LookupInDRDictCommand.GetFileName(System.String)~System.String")]
 [assembly: SuppressMessage("Maintainability", "CA1507:Use nameof to express symbol names", Justification = "<Reviewed>", Scope = "member", Target = "~P:CopyWordsWPF.ViewModel.WordViewModel.Examples")]
+[assembly: SuppressMessage("Performance", "CA1822:Mark members as static", Justification = "<Reviewed>", Scope = "member", Target = "~P:CopyWordsWPF.ViewModel.SettingsViewModel.About")]
+[assembly: SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Reviewed>", Scope = "member", Target = "~M:CopyWordsWPF.ViewModel.Commands.PlaySoundCommand.Execute(System.Object)")]

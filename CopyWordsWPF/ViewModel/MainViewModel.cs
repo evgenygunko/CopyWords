@@ -10,9 +10,10 @@ namespace CopyWordsWPF.ViewModel
 
         private string _lookUp;
 
-        public MainViewModel()
+        public MainViewModel(
+            WordViewModel wordViewModel)
         {
-            _wordViewModel = new WordViewModel();
+            _wordViewModel = wordViewModel;
             _lookUpWordCommand = new LookUpWordCommand(this);
             _showSettingsDialogCommand = new ShowSettingsDialogCommand();
         }

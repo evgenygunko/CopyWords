@@ -1,6 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Net;
+﻿using System.Windows.Media;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
@@ -15,16 +13,15 @@ namespace CopyWordsWPF.ViewModel.Commands
                 throw new ArgumentException("Sound file URL doesn't end with '.mp3'");
             }
 
-            var player = Plugin.SimpleAudioPlayer.CrossSimpleAudioPlayer.Current;
-
-            using (WebClient wc = new WebClient())
+            Uri soundFileUri;
+            if (!Uri.TryCreate(soundURL, UriKind.Absolute, out soundFileUri))
             {
-                using (Stream fileStream = wc.OpenRead(soundURL))
-                {
-                    player.Load(fileStream);
-                    player.Play();
-                }
+                throw new ArgumentException($"URL for sound file '{soundFileUri}' is invalid.");
             }
+
+            var player = new MediaPlayer();
+            player.Open(soundFileUri);
+            player.Play();
         }
 
         public override bool CanExecute(object parameter)

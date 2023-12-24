@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using CopyWordsWPF.ViewModel;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CopyWordsWPF
 {
@@ -13,7 +14,7 @@ namespace CopyWordsWPF
             InitializeComponent();
 
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
-            DataContext = new MainViewModel();
+            DataContext = App.Current.Services.GetService<MainViewModel>();
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using CopyWords.Parsers;
 using CopyWords.Parsers.Models;
 
@@ -15,7 +13,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             _mainViewModel = mainViewModel;
         }
 
-        public async override void Execute(object parameter)
+        public override async void Execute(object parameter)
         {
             string lookUp = _mainViewModel.LookUp;
             if (string.IsNullOrEmpty(lookUp))

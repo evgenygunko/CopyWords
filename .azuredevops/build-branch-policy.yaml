@@ -1,32 +1,17 @@
 trigger: none
 
 pool:
-  vmImage: 'windows-latest'
+    vmImage: "windows-latest"
 
 steps:
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.3.0'
-  inputs:
-    versionSpec: 4.3.0
+    - task: DotNetCoreCLI@2
+      displayName: "Build solution"
+      inputs:
+          command: "build"
+          configuration: "$(BuildConfiguration)"
 
-- task: NuGetCommand@2
-  displayName: 'NuGet restore'
-  inputs:
-    restoreSolution: '**/*.sln'
-
-- task: MSBuild@1
-  displayName: 'Build solution **/*.sln'
-  inputs:
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-
-- task: VSTest@2
-  displayName: 'VsTest - testAssemblies'
-  inputs:
-    testAssemblyVer2: |
-     **\$(BuildConfiguration)\*test*.dll
-     !**\obj\**
-    platform: '$(BuildPlatform)'
-    configuration: '$(BuildConfiguration)'
-    diagnosticsEnabled: True
-  enabled: false
+    # - task: DotNetCoreCLI@2
+    #   displayName: "Run unit tests"
+    #   inputs:
+    #       command: "test"
+    #       configuration: "$(BuildConfiguration)"

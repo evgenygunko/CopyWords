@@ -6,7 +6,7 @@ namespace CopyWordsWPF.ViewModel
     /// <summary>
     /// Implementation of <see cref="INotifyPropertyChanged" /> to simplify models.
     /// </summary>
-    /// <see cref="http://danrigby.com/2012/04/01/inotifypropertychanged-the-net-4-5-way-revisited/"/>
+    /// <see href="http://danrigby.com/2012/04/01/inotifypropertychanged-the-net-4-5-way-revisited/"/>
     public abstract class BindableBase : INotifyPropertyChanged
     {
         /// <summary>

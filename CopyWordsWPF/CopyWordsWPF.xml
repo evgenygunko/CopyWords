@@ -1,0 +1,203 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CopyWordsWPF</name>
+    </assembly>
+    <members>
+        <member name="T:CopyWordsWPF.App">
+            <summary>
+            Interaction logic for App.
+            </summary>
+            <summary>
+            App
+            </summary>
+        </member>
+        <member name="P:CopyWordsWPF.App.Current">
+            <summary>
+            Gets the current <see cref="T:CopyWordsWPF.App"/> instance in use
+            </summary>
+        </member>
+        <member name="P:CopyWordsWPF.App.Services">
+            <summary>
+            Gets the <see cref="T:System.IServiceProvider"/> instance to resolve application services.
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.App.ConfigureServices">
+            <summary>
+            Configures the services for the application.
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.App.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.App.Main">
+            <summary>
+            Application Entry Point.
+            </summary>
+        </member>
+        <member name="T:CopyWordsWPF.MainWindow">
+            <summary>
+            Interaction logic for MainWindow.
+            </summary>
+            <summary>
+            MainWindow
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.MainWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CopyWordsWPF.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:CopyWordsWPF.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:CopyWordsWPF.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:CopyWordsWPF.ViewModel.BindableBase">
+            <summary>
+            Implementation of <see cref="T:System.ComponentModel.INotifyPropertyChanged" /> to simplify models.
+            </summary>
+            <see href="http://danrigby.com/2012/04/01/inotifypropertychanged-the-net-4-5-way-revisited/"/>
+        </member>
+        <member name="E:CopyWordsWPF.ViewModel.BindableBase.PropertyChanged">
+            <summary>
+                Multicast event for property change notifications.
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.ViewModel.BindableBase.SetProperty``1(``0@,``0,System.String)">
+            <summary>
+                Checks if a property already matches a desired value.  Sets the property and
+                notifies listeners only when necessary.
+            </summary>
+            <typeparam name="T">Type of the property.</typeparam>
+            <param name="storage">Reference to a property with both getter and setter.</param>
+            <param name="value">Desired value for the property.</param>
+            <param name="propertyName">
+                Name of the property used to notify listeners.  This
+                value is optional and can be provided automatically when invoked from compilers that
+                support CallerMemberName.
+            </param>
+            <returns>
+                True if the value was changed, false if the existing value matched the
+                desired value.
+            </returns>
+        </member>
+        <member name="M:CopyWordsWPF.ViewModel.BindableBase.OnPropertyChanged(System.String)">
+            <summary>
+                Notifies listeners that a property value has changed.
+            </summary>
+            <param name="propertyName">
+                Name of the property used to notify listeners.  This
+                value is optional and can be provided automatically when invoked from compilers
+                that support <see cref="T:System.Runtime.CompilerServices.CallerMemberNameAttribute" />.
+            </param>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.MainViewModel.LookUp">
+            <summary>
+            Gets or sets URL to search the word or a word to search.
+            </summary>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.AnkiSoundsFolder">
+            <summary>
+            Gets or sets path to collection.media in Anki.
+            </summary>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.Mp3gainPath">
+            <summary>
+            Gets or sets path to mp3gain.exe.
+            </summary>
+        </member>
+        <member name="T:CopyWordsWPF.View.ButtonWithPopup">
+            <summary>
+            Interaction logic for ButtonWithPopup.
+            </summary>
+            <summary>
+            ButtonWithPopup
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.View.ButtonWithPopup.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CopyWordsWPF.View.ScannedImageWindow">
+            <summary>
+            ScannedImageWindow
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.View.ScannedImageWindow.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CopyWordsWPF.View.Settings">
+            <summary>
+            Interaction logic for Settings.
+            </summary>
+            <summary>
+            Settings
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.View.Settings.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CopyWordsWPF.View.WordView">
+            <summary>
+            Interaction logic for WordView.
+            </summary>
+            <summary>
+            WordView
+            </summary>
+        </member>
+        <member name="M:CopyWordsWPF.View.WordView.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:XamlGeneratedNamespace.GeneratedInternalTypeHelper">
+            <summary>
+            GeneratedInternalTypeHelper
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateInstance(System.Type,System.Globalization.CultureInfo)">
+            <summary>
+            CreateInstance
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.GetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            GetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.SetPropertyValue(System.Reflection.PropertyInfo,System.Object,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            SetPropertyValue
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.CreateDelegate(System.Type,System.Object,System.String)">
+            <summary>
+            CreateDelegate
+            </summary>
+        </member>
+        <member name="M:XamlGeneratedNamespace.GeneratedInternalTypeHelper.AddEventHandler(System.Reflection.EventInfo,System.Object,System.Delegate)">
+            <summary>
+            AddEventHandler
+            </summary>
+        </member>
+    </members>
+</doc>

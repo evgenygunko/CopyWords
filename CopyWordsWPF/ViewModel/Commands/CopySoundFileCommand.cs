@@ -1,19 +1,24 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
-using System.Net;
+using System.Net.Http;
 using System.Windows;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
     public class CopySoundFileCommand : CommandBase
     {
-        private WordViewModel _wordViewModel;
-        private PlaySoundCommand _playSound = new PlaySoundCommand();
+        private readonly HttpClient _httpClient;
+        private readonly WordViewModel _wordViewModel;
 
-        public CopySoundFileCommand(WordViewModel wordViewModel)
+        private readonly PlaySoundCommand _playSound;
+
+        public CopySoundFileCommand(
+            HttpClient httpClient,
+            WordViewModel wordViewModel)
         {
+            _httpClient = httpClient;
             _wordViewModel = wordViewModel;
+
             _playSound = new PlaySoundCommand();
         }
 
@@ -42,8 +47,11 @@ namespace CopyWordsWPF.ViewModel.Commands
                 return;
             }
 
-            // download frile from Web into temp folder
-            string fromFile = DownloadFile(soundFileUri, _wordViewModel.Word);
+            string fromFile = null;
+            Task.Run(async () =>
+            {
+                fromFile = await DownloadFileAsync(soundFileUri, _wordViewModel.Word);
+            }).Wait();
 
             // normalize mp3 file
             if (CopyWordsWPF.Properties.Settings.Default.UseMp3gain)
@@ -65,35 +73,12 @@ namespace CopyWordsWPF.ViewModel.Commands
             {
                 if (_playSound.CanExecute(parameter))
                 {
-                    // play normilized file
+                    // play normalized file
                     _playSound.Execute(fromFile);
                 }
 
                 _wordViewModel.OnFileCopied();
             }
-        }
-
-        private static string DownloadFile(Uri soundFileUri, string destFileName)
-        {
-            string destFileFullPath = Path.Combine(Path.GetTempPath(), destFileName + ".mp3");
-
-            // do not download file again if it is already downloaded
-            if (!File.Exists(destFileFullPath))
-            {
-                // Create a new WebClient instance.
-                using (WebClient myWebClient = new WebClient())
-                {
-                    // Download the Web resource and save it into the current filesystem folder.
-                    myWebClient.DownloadFile(soundFileUri.AbsoluteUri, destFileFullPath);
-                }
-            }
-
-            if (!File.Exists(destFileFullPath))
-            {
-                throw new FileDownloadException(string.Format("Cannot find sound file in a temp folder '{0}'. It probably hasn't been downloaded.", destFileFullPath));
-            }
-
-            return destFileFullPath;
         }
 
         private static bool CopyWord(string source, string destination)
@@ -163,6 +148,31 @@ namespace CopyWordsWPF.ViewModel.Commands
             File.Delete(tempAsciiFile);
 
             return true;
+        }
+
+        private async Task<string> DownloadFileAsync(Uri soundFileUri, string destFileName)
+        {
+            string destFileFullPath = Path.Combine(Path.GetTempPath(), destFileName + ".mp3");
+
+            // do not download file again if it is already downloaded
+            if (!File.Exists(destFileFullPath))
+            {
+                using (var result = await _httpClient.GetAsync(soundFileUri))
+                {
+                    if (result.IsSuccessStatusCode)
+                    {
+                        byte[] fileBytes = await result.Content.ReadAsByteArrayAsync();
+                        await File.WriteAllBytesAsync(destFileFullPath, fileBytes);
+                    }
+                }
+            }
+
+            if (!File.Exists(destFileFullPath))
+            {
+                throw new FileDownloadException($"Cannot find sound file in a temp folder '{destFileFullPath}'. It probably hasn't been downloaded.");
+            }
+
+            return destFileFullPath;
         }
     }
 }

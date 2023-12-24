@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net.Http;
 using CopyWords.Parsers.Models;
 using CopyWordsWPF.ViewModel.Commands;
 
@@ -23,11 +21,12 @@ namespace CopyWordsWPF.ViewModel
 
         public event EventHandler FileCopied;
 
-        public WordViewModel()
+        public WordViewModel(
+            HttpClient httpClient)
         {
             _copyTextCommand = new CopyTextCommand();
             _playSoundCommand = new PlaySoundCommand();
-            _copySoundFileCommand = new CopySoundFileCommand(this);
+            _copySoundFileCommand = new CopySoundFileCommand(httpClient, this);
             _lookupInDRDictCommand = new LookupInDRDictCommand();
         }
 
