@@ -1,162 +1,130 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.InteropServices;
+using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+using CopyWordsWPF.Services;
+using Microsoft.Win32;
 
 namespace CopyWordsWPF.ViewModel
 {
-    public class SettingsViewModel : BindableBase, IDataErrorInfo
+    public partial class SettingsViewModel : ObservableObject
     {
-        private const string AreFieldsNotEmptyProperty = "AreFieldsNotEmpty";
-        private const string Mp3gainPathProperty = "Mp3gainPath";
-        private const string AnkiSoundsFolderProperty = "AnkiSoundsFolder";
-        private const string UseMp3gainProperty = "UseMp3gain";
+        public event EventHandler OnRequestClose;
 
-        private readonly Dictionary<string, string> _errors = new Dictionary<string, string>();
+        private readonly ISettingsService _settingsService;
 
-        private string _ankiSoundsFolder;
-        private string _mp3gainPath;
-
-        private bool _isValidating = false;
-        private bool _useMp3gain = true;
-
-        public SettingsViewModel()
+        public SettingsViewModel(ISettingsService settingsService)
         {
-            _ankiSoundsFolder = CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder;
-            _mp3gainPath = CopyWordsWPF.Properties.Settings.Default.Mp3gainPath;
-            _useMp3gain = CopyWordsWPF.Properties.Settings.Default.UseMp3gain;
+            _settingsService = settingsService;
+
+            AnkiSoundsFolder = _settingsService.GetAnkiSoundsFolder();
+            UseMp3gain = _settingsService.UseMp3gain;
+            Mp3gainPath = _settingsService.GetMp3gainPath();
+            DanRusDictionaryFolder = _settingsService.GetDanRusDictionaryFolder();
         }
 
-        /// <summary>
-        /// Gets or sets path to collection.media in Anki.
-        /// </summary>
-        public string AnkiSoundsFolder
-        {
-            get
-            {
-                return _ankiSoundsFolder;
-            }
+        #region Properties
 
-            set
-            {
-                if (SetProperty<string>(ref _ankiSoundsFolder, value))
-                {
-                    OnPropertyChanged(AreFieldsNotEmptyProperty);
-                }
-            }
-        }
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveSettingsCommand))]
+        private string ankiSoundsFolder;
 
-        /// <summary>
-        /// Gets or sets path to mp3gain.exe.
-        /// </summary>
-        public string Mp3gainPath
-        {
-            get
-            {
-                return _mp3gainPath;
-            }
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveSettingsCommand))]
+        private bool useMp3gain;
 
-            set
-            {
-                if (SetProperty<string>(ref _mp3gainPath, value))
-                {
-                    OnPropertyChanged(AreFieldsNotEmptyProperty);
-                }
-            }
-        }
+        public bool CanUseMp3gain => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
-        public bool UseMp3gain
-        {
-            get
-            {
-                return _useMp3gain;
-            }
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveSettingsCommand))]
+        private string mp3gainPath;
 
-            set
-            {
-                if (SetProperty<bool>(ref _useMp3gain, value))
-                {
-                    OnPropertyChanged(UseMp3gainProperty);
-                    OnPropertyChanged(AreFieldsNotEmptyProperty);
-                }
-            }
-        }
-
-        public bool AreFieldsNotEmpty
-        {
-            get
-            {
-                bool valueIsMissing = string.IsNullOrEmpty(_ankiSoundsFolder) ||
-                    (_useMp3gain && string.IsNullOrEmpty(_mp3gainPath));
-                return !valueIsMissing;
-            }
-        }
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveSettingsCommand))]
+        private string danRusDictionaryFolder;
 
         public string About => $".net version: {RuntimeInformation.FrameworkDescription}";
 
-        public bool Validate()
-        {
-            _isValidating = true;
-            try
-            {
-                OnPropertyChanged(AnkiSoundsFolderProperty);
-                OnPropertyChanged(Mp3gainPathProperty);
-            }
-            finally
-            {
-                _isValidating = false;
-            }
-
-            return _errors.Count == 0;
-        }
-
-        #region IDataErrorInfo Members
-
-        public string Error
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public string this[string columnName]
+        public bool CanSaveSettings
         {
             get
             {
-                string result = null;
-
-                if (!_isValidating)
+                bool result = Directory.Exists(AnkiSoundsFolder);
+                if (UseMp3gain)
                 {
-                    return result;
+                    result &= File.Exists(Mp3gainPath);
                 }
 
-                _errors.Remove(columnName);
-
-                if (columnName == AnkiSoundsFolderProperty)
+                if (!string.IsNullOrEmpty(DanRusDictionaryFolder))
                 {
-                    if (!Directory.Exists(_ankiSoundsFolder))
-                    {
-                        result = "'Path to Anki sounds folder' must point to existing directory.";
-                    }
-                }
-
-                if (columnName == Mp3gainPathProperty)
-                {
-                    if (_useMp3gain)
-                    {
-                        if (!(File.Exists(_mp3gainPath) && new FileInfo(_mp3gainPath).Name == "mp3gain.exe"))
-                        {
-                            result = "'Path to mp3gain' must point to mp3gain.exe.";
-                        }
-                    }
-                }
-
-                if (!string.IsNullOrEmpty(result))
-                {
-                    _errors.Add(columnName, result);
+                    result &= Directory.Exists(DanRusDictionaryFolder);
                 }
 
                 return result;
             }
+        }
+
+        #endregion
+
+        #region Commands
+
+        [RelayCommand]
+        public void PickAnkiSoundsFolder()
+        {
+            var dlg = new OpenFolderDialog
+            {
+                Title = "Select Folder"
+            };
+
+            if (dlg.ShowDialog() == true)
+            {
+                AnkiSoundsFolder = dlg.FolderName;
+            }
+        }
+
+        [RelayCommand]
+        public void PickMp3gainPath()
+        {
+            var dlg = new OpenFileDialog
+            {
+                Title = "Select path to mp3gain.exe",
+                Filter = "exe files (*.exe)|*.exe"
+            };
+
+            if (dlg.ShowDialog() == true)
+            {
+                Mp3gainPath = dlg.FileName;
+            }
+        }
+
+        [RelayCommand]
+        public void PickDanRusDictionaryFolder()
+        {
+            var dlg = new OpenFolderDialog
+            {
+                Title = "Select Folder"
+            };
+
+            if (dlg.ShowDialog() == true)
+            {
+                DanRusDictionaryFolder = dlg.FolderName;
+            }
+        }
+
+        [RelayCommand(CanExecute = nameof(CanSaveSettings))]
+        public void SaveSettings()
+        {
+            _settingsService.SetAnkiSoundsFolder(AnkiSoundsFolder);
+            _settingsService.UseMp3gain = UseMp3gain;
+            _settingsService.SetMp3gainPath(Mp3gainPath);
+            _settingsService.SetDanRusDictionaryFolder(DanRusDictionaryFolder);
+
+            _settingsService.Save();
+
+            MessageBox.Show("Settings have been updated", "Update Settings", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            OnRequestClose(this, new EventArgs());
         }
 
         #endregion

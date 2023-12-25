@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using CopyWordsWPF.Services;
 using CopyWordsWPF.ViewModel;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,13 +34,14 @@ namespace CopyWordsWPF
         {
             var services = new ServiceCollection();
 
-            //services.AddSingleton<ISettingsService, SettingsService>();
-            //services.AddHttpClient<ISaveSoundFileService, SaveSoundFileService>();
+            services.AddSingleton<ISettingsService, SettingsService>();
             services.AddHttpClient();
+            //services.AddHttpClient<ISaveSoundFileService, SaveSoundFileService>();
 
             // Viewmodels
             services.AddTransient<MainViewModel>();
             services.AddTransient<WordViewModel>();
+            services.AddTransient<SettingsViewModel>();
 
             return services.BuildServiceProvider();
         }

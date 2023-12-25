@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using CopyWords.Parsers.Models;
+using CopyWordsWPF.Services;
 using CopyWordsWPF.ViewModel.Commands;
 
 namespace CopyWordsWPF.ViewModel
@@ -22,12 +23,13 @@ namespace CopyWordsWPF.ViewModel
         public event EventHandler FileCopied;
 
         public WordViewModel(
+            ISettingsService settingsService,
             HttpClient httpClient)
         {
             _copyTextCommand = new CopyTextCommand();
             _playSoundCommand = new PlaySoundCommand();
-            _copySoundFileCommand = new CopySoundFileCommand(httpClient, this);
-            _lookupInDRDictCommand = new LookupInDRDictCommand();
+            _copySoundFileCommand = new CopySoundFileCommand(httpClient, settingsService, this);
+            _lookupInDRDictCommand = new LookupInDRDictCommand(settingsService);
         }
 
         #region Properties

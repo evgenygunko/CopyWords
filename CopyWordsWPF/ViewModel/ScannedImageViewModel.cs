@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Media.Imaging;
+using CopyWordsWPF.Services;
 using CopyWordsWPF.ViewModel.Commands;
 
 namespace CopyWordsWPF.ViewModel
 {
     public class ScannedImageViewModel : BindableBase
     {
+        private readonly ISettingsService _settingsService;
+
         private bool _isPreviousPageAvailable;
         private bool _isNextPageAvaliable;
         private string _currentPage;
@@ -17,11 +18,16 @@ namespace CopyWordsWPF.ViewModel
 
         private ChangePageCommand _changePageCommand;
 
-        public ScannedImageViewModel(string title, List<string> allPages, string currentPage)
+        public ScannedImageViewModel(
+            ISettingsService settingsService,
+            string title,
+            List<string> allPages,
+            string currentPage)
         {
+            _settingsService = settingsService;
             Title = title;
-            _currentPage = currentPage;
             _allPages = allPages;
+            _currentPage = currentPage;
 
             _changePageCommand = new ChangePageCommand(MoveForward, MoveBack);
 
@@ -63,9 +69,9 @@ namespace CopyWordsWPF.ViewModel
 
         #region Public Methods
 
-        private static string GetImageFilePath(string imageName)
+        private string GetImageFilePath(string imageName)
         {
-            string filePath = Path.Combine(CopyWordsWPF.Properties.Settings.Default.DRDictPath, imageName);
+            string filePath = Path.Combine(_settingsService.GetDanRusDictionaryFolder(), imageName);
             return filePath;
         }
 

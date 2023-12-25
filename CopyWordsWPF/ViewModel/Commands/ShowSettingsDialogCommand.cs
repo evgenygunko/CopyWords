@@ -1,4 +1,5 @@
 ﻿using CopyWordsWPF.View;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
@@ -6,16 +7,8 @@ namespace CopyWordsWPF.ViewModel.Commands
     {
         public override void Execute(object parameter)
         {
-            Settings settingsDialog = new Settings();
-            if (settingsDialog.ShowDialog() == true)
-            {
-                // save settings
-                SettingsViewModel vm = settingsDialog.DataContext as SettingsViewModel;
-
-                CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder = vm.AnkiSoundsFolder;
-                CopyWordsWPF.Properties.Settings.Default.Mp3gainPath = vm.Mp3gainPath;
-                CopyWordsWPF.Properties.Settings.Default.UseMp3gain = vm.UseMp3gain;
-            }
+            Settings settingsDialog = new Settings(App.Current.Services.GetService<SettingsViewModel>());
+            settingsDialog.ShowDialog();
         }
     }
 }

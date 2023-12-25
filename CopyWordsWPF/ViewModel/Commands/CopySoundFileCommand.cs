@@ -2,21 +2,25 @@
 using System.IO;
 using System.Net.Http;
 using System.Windows;
+using CopyWordsWPF.Services;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
     public class CopySoundFileCommand : CommandBase
     {
         private readonly HttpClient _httpClient;
+        private readonly ISettingsService _settingsService;
         private readonly WordViewModel _wordViewModel;
 
         private readonly PlaySoundCommand _playSound;
 
         public CopySoundFileCommand(
             HttpClient httpClient,
+            ISettingsService settingsService,
             WordViewModel wordViewModel)
         {
             _httpClient = httpClient;
+            _settingsService = settingsService;
             _wordViewModel = wordViewModel;
 
             _playSound = new PlaySoundCommand();
@@ -36,7 +40,7 @@ namespace CopyWordsWPF.ViewModel.Commands
                 throw new ArgumentException(string.Format("URL for sound file '{0}' is invalid.", _wordViewModel.Sound));
             }
 
-            if (string.IsNullOrEmpty(CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder) || !Directory.Exists(CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder))
+            if (string.IsNullOrEmpty(_settingsService.GetAnkiSoundsFolder()) || !Directory.Exists(_settingsService.GetAnkiSoundsFolder()))
             {
                 MessageBox.Show(
                     string.Format("'AnkiSoundsFolder' parameter in Settings must contain path to an existing folder. Please select a valid path in Settings."),
@@ -54,7 +58,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             }).Wait();
 
             // normalize mp3 file
-            if (CopyWordsWPF.Properties.Settings.Default.UseMp3gain)
+            if (_settingsService.UseMp3gain)
             {
                 if (!CallMp3gain(fromFile))
                 {
@@ -62,7 +66,7 @@ namespace CopyWordsWPF.ViewModel.Commands
                 }
             }
 
-            string destinationFile = Path.Combine(CopyWordsWPF.Properties.Settings.Default.AnkiSoundsFolder, _wordViewModel.Word + ".mp3");
+            string destinationFile = Path.Combine(_settingsService.GetAnkiSoundsFolder(), _wordViewModel.Word + ".mp3");
             Debug.Assert(destinationFile.Length > 0, "Path to destination file can't be empty.");
 
             // save text for Anki into clipboard
@@ -98,12 +102,12 @@ namespace CopyWordsWPF.ViewModel.Commands
             return true;
         }
 
-        private static bool CallMp3gain(string fromFile)
+        private bool CallMp3gain(string fromFile)
         {
-            if (!File.Exists(CopyWordsWPF.Properties.Settings.Default.Mp3gainPath))
+            if (!File.Exists(_settingsService.GetMp3gainPath()))
             {
                 MessageBox.Show(
-                    string.Format("Cannot find mp3gain.exe by path '{0}'. Please select a valid path in Settings.", CopyWordsWPF.Properties.Settings.Default.Mp3gainPath),
+                    string.Format("Cannot find mp3gain.exe by path '{0}'. Please select a valid path in Settings.", _settingsService.GetMp3gainPath()),
                     "Cannot normalize mp3 file",
                     MessageBoxButton.OK,
                     MessageBoxImage.Warning);
@@ -119,7 +123,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = false;
-            startInfo.FileName = CopyWordsWPF.Properties.Settings.Default.Mp3gainPath;
+            startInfo.FileName = _settingsService.GetMp3gainPath();
             startInfo.WindowStyle = ProcessWindowStyle.Hidden;
             startInfo.CreateNoWindow = true;
             startInfo.Arguments = "-r " + tempAsciiFile;

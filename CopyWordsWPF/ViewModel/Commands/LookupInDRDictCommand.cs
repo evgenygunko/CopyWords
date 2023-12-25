@@ -1,29 +1,33 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.IO;
 using System.Windows;
+using CopyWordsWPF.Services;
 using CopyWordsWPF.View;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
     public class LookupInDRDictCommand : CommandBase
     {
+        private readonly ISettingsService _settingsService;
+
         private List<WordToPageMap> _wordsMapAccurateList;
         private Dictionary<string, string> _wordsMapApproxDict = new Dictionary<string, string>();
 
-        public LookupInDRDictCommand()
+        public LookupInDRDictCommand(ISettingsService settingsService)
         {
+            _settingsService = settingsService;
+
             FillThePreciseMap();
             FillTheApproxMap();
         }
 
         public override void Execute(object parameter)
         {
-            if (!Directory.Exists(CopyWordsWPF.Properties.Settings.Default.DRDictPath))
+            if (!Directory.Exists(_settingsService.GetDanRusDictionaryFolder()))
             {
                 string message = string.Format(
                     "Directory for Danish-Russian dictionary specified " +
                     "in settings does not exist '{0}'. Please open Settings dialog and select a valid directory.",
-                    CopyWordsWPF.Properties.Settings.Default.DRDictPath);
+                    _settingsService.GetDanRusDictionaryFolder());
 
                 MessageBox.Show(
                     message,
@@ -55,7 +59,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             }
 
             string title = string.Format("Word: '{0}', image file: '{1}'", word, fileName);
-            ScannedImageViewModel vm = new ScannedImageViewModel(title, allPages, fileName);
+            ScannedImageViewModel vm = new ScannedImageViewModel(_settingsService, title, allPages, fileName);
 
             ScannedImageWindow w = new ScannedImageWindow()
             {

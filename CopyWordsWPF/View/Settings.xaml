@@ -1,4 +1,4 @@
-﻿<Window x:Class="CopyWordsWPF.View.Settings"
+<Window x:Class="CopyWordsWPF.View.Settings"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Settings" Height="240" Width="550"
@@ -16,7 +16,7 @@
             </Style>
             <Style TargetType="{x:Type TextBox}">
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="Margin" Value="5 5 35 5" />
+                <Setter Property="Margin" Value="5 5 5 5" />
                 <Setter Property="Height" Value="25" />
                 <Setter Property="Validation.ErrorTemplate" >
                     <Setter.Value>
@@ -42,36 +42,64 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
+        <!-- Path to Anki -->
         <TextBlock Grid.Row="0" Grid.Column="0">Path to Anki sounds folder:</TextBlock>
         <TextBox Grid.Row="0" Grid.Column="1"
                  Text="{Binding Path=AnkiSoundsFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                         FallbackValue='C:\\Temp',
-                        ValidatesOnDataErrors=true}"></TextBox>
+                        ValidatesOnDataErrors=true}">
+        </TextBox>
+        <Button Grid.Row="0" Grid.Column="2" Height="25" Width="25" Margin="0,0,10,0"
+                Command="{Binding PickAnkiSoundsFolderCommand}">📁</Button>
 
+        <!-- Path to mp3gain -->
         <CheckBox Grid.Row="1" Grid.Column="1" IsChecked="{Binding UseMp3gain}">Use mp3gain</CheckBox>
         <TextBlock Grid.Row="2" Grid.Column="0">Path to mp3gain:</TextBlock>
         <TextBox Grid.Row="2" Grid.Column="1"
                  Text="{Binding Path=Mp3gainPath, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                         FallbackValue='C:\\Temp\\mp3gain-win-1_3_4\\mp3gain.exe',
                         ValidatesOnDataErrors=true}"
-                 IsEnabled="{Binding UseMp3gain}"></TextBox>
+                 IsEnabled="{Binding UseMp3gain}">
+        </TextBox>
+        <Button Grid.Row="2" Grid.Column="2" Height="25" Width="25" Margin="0,0,10,0"
+                Command="{Binding PickMp3gainPathCommand}"
+                IsEnabled="{Binding UseMp3gain}">📁</Button>
 
-        <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal"
-                    VerticalAlignment="Bottom" HorizontalAlignment="Right">
-            <Button Height="25" Width="70" Margin="5 5 5 10" IsDefault="True"
-                    x:Name="btnOK"
-                    IsEnabled="{Binding Path=AreFieldsNotEmpty}"
-                    Click="btnOK_Click">OK</Button>
-            <Button Height="25" Width="70" Margin="5 5 35 10" IsCancel="True">Cancel</Button>
+        <!-- Path to DanRus dictionary -->
+        <TextBlock Grid.Row="3" Grid.Column="0">Path to DanRus dictionary:</TextBlock>
+        <TextBox Grid.Row="3" Grid.Column="1"
+                Text="{Binding Path=DanRusDictionaryFolder, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+                FallbackValue='C:\\Temp\\DANRUS\\DATA',
+                ValidatesOnDataErrors=true}">
+        </TextBox>
+        <Button Grid.Row="3" Grid.Column="2" Height="25" Width="25" Margin="0,0,10,0"
+            Command="{Binding PickDanRusDictionaryFolderCommand}">📁</Button>
+        
+        <!-- OK and Cancel buttons -->
+        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" 
+                    Orientation="Horizontal"
+                    VerticalAlignment="Bottom" 
+                    HorizontalAlignment="Right">
+            <Button Height="25" Width="70" Margin="5 5 5 10" 
+                    IsDefault="True"
+                    x:Name="btnOK"                    
+                    Command="{Binding SaveSettingsCommand}">OK</Button>
+            <Button Height="25" Width="70" Margin="5 5 5 10" 
+                    IsCancel="True">Cancel</Button>
         </StackPanel>
 
-        <TextBlock Grid.Row="4" Grid.ColumnSpan="2" Text="{Binding About, FallbackValue='.net version:'}" />
+        <!-- Label with info -->
+        <TextBlock Grid.Row="5" Grid.ColumnSpan="3" 
+                   Text="{Binding About, FallbackValue='.net version:'}"
+                   VerticalAlignment="Top" Foreground="SlateGray" />
     </Grid>
 </Window>

@@ -8,22 +8,12 @@ namespace CopyWordsWPF.View
     /// </summary>
     public partial class Settings : Window
     {
-        private SettingsViewModel _viewModel = new SettingsViewModel();
-
-        public Settings()
+        public Settings(SettingsViewModel viewModel)
         {
             InitializeComponent();
 
-            DataContext = _viewModel;
-        }
-
-        private void btnOK_Click(object sender, RoutedEventArgs e)
-        {
-            if (_viewModel.Validate())
-            {
-                DialogResult = true;
-                Close();
-            }
+            DataContext = viewModel;
+            viewModel.OnRequestClose += (s, e) => Close();
         }
     }
 }

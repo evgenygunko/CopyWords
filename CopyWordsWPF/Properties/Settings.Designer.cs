@@ -12,7 +12,7 @@ namespace CopyWordsWPF.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.3.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.8.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -85,19 +85,19 @@ namespace CopyWordsWPF.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Evgeny\\Dropbox\\Danish\\Большой датско-русский словарь\\DATA")]
-        public string DRDictPath {
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\evgen\\Dropbox\\Danish\\Большой датско-русский словарь\\DATA")]
+        public string DanRusDictionaryFolder {
             get {
-                return ((string)(this["DRDictPath"]));
+                return ((string)(this["DanRusDictionaryFolder"]));
             }
             set {
-                this["DRDictPath"] = value;
+                this["DanRusDictionaryFolder"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Evgeny\\Dropbox\\Tools\\mp3gain-win-1_3_4\\mp3gain.exe")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Users\\evgen\\Dropbox\\Tools\\mp3gain-win-1_3_4\\mp3gain.exe")]
         public string Mp3gainPath {
             get {
                 return ((string)(this["Mp3gainPath"]));

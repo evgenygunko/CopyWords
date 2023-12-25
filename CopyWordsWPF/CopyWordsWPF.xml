@@ -110,15 +110,48 @@
             Gets or sets URL to search the word or a word to search.
             </summary>
         </member>
+        <member name="T:CopyWordsWPF.ViewModel.SettingsViewModel">
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+            <inheritdoc/>
+        </member>
         <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.AnkiSoundsFolder">
-            <summary>
-            Gets or sets path to collection.media in Anki.
-            </summary>
+            <inheritdoc cref="F:CopyWordsWPF.ViewModel.SettingsViewModel.ankiSoundsFolder"/>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.UseMp3gain">
+            <inheritdoc cref="F:CopyWordsWPF.ViewModel.SettingsViewModel.useMp3gain"/>
         </member>
         <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.Mp3gainPath">
-            <summary>
-            Gets or sets path to mp3gain.exe.
-            </summary>
+            <inheritdoc cref="F:CopyWordsWPF.ViewModel.SettingsViewModel.mp3gainPath"/>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.DanRusDictionaryFolder">
+            <inheritdoc cref="F:CopyWordsWPF.ViewModel.SettingsViewModel.danRusDictionaryFolder"/>
+        </member>
+        <member name="F:CopyWordsWPF.ViewModel.SettingsViewModel.pickAnkiSoundsFolderCommand">
+            <summary>The backing field for <see cref="P:CopyWordsWPF.ViewModel.SettingsViewModel.PickAnkiSoundsFolderCommand"/>.</summary>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.PickAnkiSoundsFolderCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:CopyWordsWPF.ViewModel.SettingsViewModel.PickAnkiSoundsFolder"/>.</summary>
+        </member>
+        <member name="F:CopyWordsWPF.ViewModel.SettingsViewModel.pickMp3gainPathCommand">
+            <summary>The backing field for <see cref="P:CopyWordsWPF.ViewModel.SettingsViewModel.PickMp3gainPathCommand"/>.</summary>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.PickMp3gainPathCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:CopyWordsWPF.ViewModel.SettingsViewModel.PickMp3gainPath"/>.</summary>
+        </member>
+        <member name="F:CopyWordsWPF.ViewModel.SettingsViewModel.pickDanRusDictionaryFolderCommand">
+            <summary>The backing field for <see cref="P:CopyWordsWPF.ViewModel.SettingsViewModel.PickDanRusDictionaryFolderCommand"/>.</summary>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.PickDanRusDictionaryFolderCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:CopyWordsWPF.ViewModel.SettingsViewModel.PickDanRusDictionaryFolder"/>.</summary>
+        </member>
+        <member name="F:CopyWordsWPF.ViewModel.SettingsViewModel.saveSettingsCommand">
+            <summary>The backing field for <see cref="P:CopyWordsWPF.ViewModel.SettingsViewModel.SaveSettingsCommand"/>.</summary>
+        </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.SaveSettingsCommand">
+            <summary>Gets an <see cref="T:CommunityToolkit.Mvvm.Input.IRelayCommand"/> instance wrapping <see cref="M:CopyWordsWPF.ViewModel.SettingsViewModel.SaveSettings"/>.</summary>
         </member>
         <member name="T:CopyWordsWPF.View.ButtonWithPopup">
             <summary>
@@ -198,6 +231,42 @@
             <summary>
             AddEventHandler
             </summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.AnkiSoundsFolder">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "AnkiSoundsFolder" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.UseMp3gain">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "UseMp3gain" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.Mp3gainPath">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "Mp3gainPath" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DanRusDictionaryFolder">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DanRusDictionaryFolder" generated properties.</summary>
+        </member>
+        <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
+            <summary>
+            A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
+            for all properties generated with <see cref="T:CommunityToolkit.Mvvm.ComponentModel.ObservablePropertyAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.AnkiSoundsFolder">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "AnkiSoundsFolder" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.UseMp3gain">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "UseMp3gain" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.Mp3gainPath">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "Mp3gainPath" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DanRusDictionaryFolder">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DanRusDictionaryFolder" generated properties.</summary>
         </member>
     </members>
 </doc>

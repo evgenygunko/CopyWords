@@ -17,7 +17,7 @@
     <Setting Name="AnkiSoundsFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Temp\1</Value>
     </Setting>
-    <Setting Name="DRDictPath" Type="System.String" Scope="User">
+    <Setting Name="DanRusDictionaryFolder" Type="System.String" Scope="User">
       <Value Profile="(Default)">C:\Users\evgen\Dropbox\Danish\Большой датско-русский словарь\DATA</Value>
     </Setting>
     <Setting Name="Mp3gainPath" Type="System.String" Scope="User">
