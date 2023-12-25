@@ -10,7 +10,8 @@ stages:
 
   jobs:
   - job: Sync_With_Github
-    #pool:
+    pool:
+        vmImage: 'ubuntu-latest'
     #  name: Win10-private
 
     steps:
