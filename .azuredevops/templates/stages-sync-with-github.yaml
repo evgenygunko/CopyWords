@@ -12,6 +12,7 @@ stages:
   - job: Sync_With_Github
     pool:
         vmImage: 'ubuntu-latest'
+    #pool:
     #  name: Win10-private
 
     steps:
@@ -20,6 +21,7 @@ stages:
 
         git config --global user.email "evgeny.gunko@gmail.com"
         git config --global user.name "Evgeny Gunko"
+        git config --global pull.rebase true
 
         echo Pulling changes from Github repository: https://github.com/evgenygunko/${{ parameters.repository }}.git
         git pull https://github.com/evgenygunko/${{ parameters.repository }}.git master --allow-unrelated-histories
