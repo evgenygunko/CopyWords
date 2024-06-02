@@ -1,15 +1,20 @@
 ﻿using System.Windows;
 using CopyWords.Parsers;
 using CopyWords.Parsers.Models;
+using CopyWordsWPF.Services;
 
 namespace CopyWordsWPF.ViewModel.Commands
 {
     public class LookUpWordCommand : CommandBase
     {
+        private readonly ISettingsService _settingsService;
         private MainViewModel _mainViewModel;
 
-        public LookUpWordCommand(MainViewModel mainViewModel)
+        public LookUpWordCommand(
+            ISettingsService settingsService,
+            MainViewModel mainViewModel)
         {
+            _settingsService = settingsService;
             _mainViewModel = mainViewModel;
         }
 
@@ -47,7 +52,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             }
         }
 
-        private static async Task<WordModel> LookUpWordAsync(string word)
+        private async Task<WordModel> LookUpWordAsync(string word)
         {
             if (string.IsNullOrEmpty(word))
             {
@@ -66,7 +71,7 @@ namespace CopyWordsWPF.ViewModel.Commands
             WordModel wordModel = null;
             try
             {
-                wordModel = await command.LookUpWordAsync(word);
+                wordModel = await command.LookUpWordAsync(word, _settingsService.UseSlovardk);
 
                 if (wordModel == null)
                 {

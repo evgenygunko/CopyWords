@@ -43,6 +43,7 @@
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -83,9 +84,11 @@
         </TextBox>
         <Button Grid.Row="3" Grid.Column="2" Height="25" Width="25" Margin="0,0,10,0"
             Command="{Binding PickDanRusDictionaryFolderCommand}">📁</Button>
+
+        <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding UseSlovardk}">Use slovar.dk</CheckBox>
         
         <!-- OK and Cancel buttons -->
-        <StackPanel Grid.Row="4" Grid.ColumnSpan="2" 
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" 
                     Orientation="Horizontal"
                     VerticalAlignment="Bottom" 
                     HorizontalAlignment="Right">
@@ -98,7 +101,7 @@
         </StackPanel>
 
         <!-- Label with info -->
-        <TextBlock Grid.Row="5" Grid.ColumnSpan="3" 
+        <TextBlock Grid.Row="6" Grid.ColumnSpan="3" 
                    Text="{Binding About, FallbackValue='.net version:'}"
                    VerticalAlignment="Top" Foreground="SlateGray" />
     </Grid>

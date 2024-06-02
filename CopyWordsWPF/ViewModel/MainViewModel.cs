@@ -1,4 +1,5 @@
-﻿using CopyWordsWPF.ViewModel.Commands;
+﻿using CopyWordsWPF.Services;
+using CopyWordsWPF.ViewModel.Commands;
 
 namespace CopyWordsWPF.ViewModel
 {
@@ -11,10 +12,11 @@ namespace CopyWordsWPF.ViewModel
         private string _lookUp;
 
         public MainViewModel(
+            ISettingsService settingsService,
             WordViewModel wordViewModel)
         {
             _wordViewModel = wordViewModel;
-            _lookUpWordCommand = new LookUpWordCommand(this);
+            _lookUpWordCommand = new LookUpWordCommand(settingsService, this);
             _showSettingsDialogCommand = new ShowSettingsDialogCommand();
         }
 

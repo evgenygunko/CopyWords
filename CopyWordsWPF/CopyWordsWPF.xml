@@ -129,6 +129,9 @@
         <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.DanRusDictionaryFolder">
             <inheritdoc cref="F:CopyWordsWPF.ViewModel.SettingsViewModel.danRusDictionaryFolder"/>
         </member>
+        <member name="P:CopyWordsWPF.ViewModel.SettingsViewModel.UseSlovardk">
+            <inheritdoc cref="F:CopyWordsWPF.ViewModel.SettingsViewModel.useSlovardk"/>
+        </member>
         <member name="F:CopyWordsWPF.ViewModel.SettingsViewModel.pickAnkiSoundsFolderCommand">
             <summary>The backing field for <see cref="P:CopyWordsWPF.ViewModel.SettingsViewModel.PickAnkiSoundsFolderCommand"/>.</summary>
         </member>
@@ -250,6 +253,9 @@
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.DanRusDictionaryFolder">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "DanRusDictionaryFolder" generated properties.</summary>
         </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangingArgs.UseSlovardk">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangingEventArgs"/> instance for all "UseSlovardk" generated properties.</summary>
+        </member>
         <member name="T:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs">
             <summary>
             A helper type providing cached, reusable <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instances
@@ -267,6 +273,9 @@
         </member>
         <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.DanRusDictionaryFolder">
             <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "DanRusDictionaryFolder" generated properties.</summary>
+        </member>
+        <member name="F:CommunityToolkit.Mvvm.ComponentModel.__Internals.__KnownINotifyPropertyChangedArgs.UseSlovardk">
+            <summary>The cached <see cref="T:System.ComponentModel.PropertyChangedEventArgs"/> instance for all "UseSlovardk" generated properties.</summary>
         </member>
     </members>
 </doc>

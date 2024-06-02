@@ -12,6 +12,8 @@
 
         bool UseMp3gain { get; set; }
 
+        bool UseSlovardk { get; set; }
+
         string GetDanRusDictionaryFolder();
 
         void SetDanRusDictionaryFolder(string path);
@@ -25,6 +27,12 @@
         {
             get => Properties.Settings.Default.UseMp3gain;
             set => Properties.Settings.Default.UseMp3gain = value;
+        }
+
+        public bool UseSlovardk
+        {
+            get => Properties.Settings.Default.UseSlovardk;
+            set => Properties.Settings.Default.UseSlovardk = value;
         }
 
         public string GetAnkiSoundsFolder() => Properties.Settings.Default.AnkiSoundsFolder;

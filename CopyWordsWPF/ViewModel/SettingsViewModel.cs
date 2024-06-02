@@ -22,6 +22,7 @@ namespace CopyWordsWPF.ViewModel
             UseMp3gain = _settingsService.UseMp3gain;
             Mp3gainPath = _settingsService.GetMp3gainPath();
             DanRusDictionaryFolder = _settingsService.GetDanRusDictionaryFolder();
+            UseSlovardk = _settingsService.UseSlovardk;
         }
 
         #region Properties
@@ -43,6 +44,10 @@ namespace CopyWordsWPF.ViewModel
         [ObservableProperty]
         [NotifyCanExecuteChangedFor(nameof(SaveSettingsCommand))]
         private string danRusDictionaryFolder;
+
+        [ObservableProperty]
+        [NotifyCanExecuteChangedFor(nameof(SaveSettingsCommand))]
+        private bool useSlovardk;
 
         public string About => $".net version: {RuntimeInformation.FrameworkDescription}";
 
@@ -119,6 +124,7 @@ namespace CopyWordsWPF.ViewModel
             _settingsService.UseMp3gain = UseMp3gain;
             _settingsService.SetMp3gainPath(Mp3gainPath);
             _settingsService.SetDanRusDictionaryFolder(DanRusDictionaryFolder);
+            _settingsService.UseSlovardk = UseSlovardk;
 
             _settingsService.Save();
 
